@@ -17,7 +17,7 @@ window.onload = function () {
     let leftEarth = document.createElement("img");
     container.appendChild(leftEarth);
 
-    leftEarth.src = "xueyi/1.png";
+    leftEarth.src = "xueyi/2.png";
     leftEarth.style.width = "800px";
     leftEarth.style.position = "absolute";
     leftEarth.style.left = "0";
@@ -30,7 +30,7 @@ window.onload = function () {
     let rightEarth = document.createElement("img");
     container.appendChild(rightEarth);
 
-    rightEarth.src = "xueyi/1.png";
+    rightEarth.src = "xueyi/2.png";
     rightEarth.style.width = "800px";
     rightEarth.style.position = "absolute";
     rightEarth.style.left = "0";
@@ -96,9 +96,9 @@ window.onload = function () {
         };
 
         btn.onmouseout = () => {
-            btn.style.background = "rgba(120, 160, 255, 0.15)";
+            btn.style.background = "rgb(0, 157, 255)";
             btn.style.color = "#d8e9ff";
-            btn.style.boxShadow = "0 0 15px rgba(120,160,255,0.3)";
+            btn.style.boxShadow = "0 0 15px rgba(17, 191, 254, 0.82)";
             btn.style.transform = "scale(1)";
         };
 
