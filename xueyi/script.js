@@ -1,5 +1,6 @@
 window.onload = function () {
 
+
     let container = document.createElement("div");
     document.body.appendChild(container);
 
@@ -47,58 +48,74 @@ window.onload = function () {
         rightEarth.style.transform = "translateX(300px)";
 
         setTimeout(() => {
-            container.style.display = "none";
             menu.style.visibility = "visible";
+            menu.style.opacity = "1";
         }, 1000);
 
     };
 
-};
 
-let menu = document.createElement("div");
-document.body.appendChild(menu);
 
-menu.style.position = "fixed";
-menu.style.top = "0";
-menu.style.left = "0";
-menu.style.width = "100vw";
-menu.style.height = "100vh";
-menu.style.background = "rgba(0,0,0,0.8)";
-menu.style.display = "none";
-menu.style.flexDirection = "column";
-menu.style.justifyContent = "center";
-menu.style.alignItems = "center";
-menu.style.gap = "20px";
-menu.style.fontSize = "28px";
-menu.style.color = "white";
-menu.style.zIndex = "999";
-menu.style.display = "none";
-menu.style.display = "flex";
-menu.style.visibility = "hidden";
+    let menu = document.createElement("div");
+    document.body.appendChild(menu);
 
-function createMenuButton(text, link) {
-    let btn = document.createElement("a");
-    btn.innerText = text;
-    btn.href = link;
+    menu.style.position = "absolute";
+    menu.style.top = "50%";
+    menu.style.left = "50%";
+    menu.style.transform = "translate(-50%, -50%)";
 
-    btn.style.color = "white";
-    btn.style.textDecoration = "none";
-    btn.style.border = "1px solid white";
-    btn.style.padding = "12px 40px";
-    btn.style.transition = "0.3s";
+    menu.style.display = "flex";
+    menu.style.width = "600px";
+    menu.style.flexDirection = "column";
+    menu.style.alignItems = "center";
+    menu.style.gap = "20px";
 
-    btn.onmouseover = () => btn.style.background = "white", btn.style.color = "black";
-    btn.onmouseout = () => btn.style.background = "transparent", btn.style.color = "white";
+    menu.style.visibility = "hidden";
+    menu.style.opacity = "0";
+    menu.style.transition = "0.8s";
 
-    menu.appendChild(btn);
+    function createMenuButton(text, link) {
+        let btn = document.createElement("a");
+        btn.style.textDecoration = "none";
+        btn.innerText = text;
+        btn.href = link;
+
+        btn.style.background = "rgba(0, 157, 255, 0.67)";
+        btn.style.backdropFilter = "blur(6px)";
+        btn.style.border = "1px solid rgba(200,220,255,0.4)";
+
+
+        btn.style.boxShadow = "0 0 15px rgba(120,160,255,0.3)";
+
+
+        btn.onmouseover = () => {
+            btn.style.background = "linear-gradient(90deg, #7aa6ff, #caa8ff)";
+            btn.style.color = "white";
+            btn.style.boxShadow = "0 0 25px rgba(180,200,255,0.9)";
+            btn.style.transform = "scale(1.05)";
+        };
+
+        btn.onmouseout = () => {
+            btn.style.background = "rgba(120, 160, 255, 0.15)";
+            btn.style.color = "#d8e9ff";
+            btn.style.boxShadow = "0 0 15px rgba(120,160,255,0.3)";
+            btn.style.transform = "scale(1)";
+        };
+
+        menu.appendChild(btn);
+    }
+    createMenuButton("INDEX", "index.html");
+    createMenuButton("LIKE", "bio.html");
+    createMenuButton("SEARCH", "searching.html");
+    createMenuButton("SCROLLING", "scrolling.html");
+    createMenuButton("TRACKING", "tracking.html");
+    createMenuButton("RECOMMENDATION", "recommendation.html");
+    createMenuButton("DISTORTION", "distortion.html");
+    createMenuButton("LOSS OF CONTROL", "loss.html");
+    createMenuButton("REFLECTION", "Reflection.html");
+    createMenuButton("FINAL", "final.html");
+
+
+
+
 }
-createMenuButton("INDEX", "index.html");
-createMenuButton("LIKE", "bio.html");
-createMenuButton("SEARCH", "searching.html");
-createMenuButton("SCROLLING", "scrolling.html");
-createMenuButton("TRACKING", "tracking.html");
-createMenuButton("RECOMMENDATION", "recommendation.html");
-createMenuButton("DISTORTION", "distortion.html");
-createMenuButton("LOSS OF CONTROL", "loss.html");
-createMenuButton("REFLECTION", "Reflection.html");
-createMenuButton("FINAL", "final.html");
