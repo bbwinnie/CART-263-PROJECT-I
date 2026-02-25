@@ -132,8 +132,8 @@ window.onload = function () {
 
         menu.appendChild(btn);
     }
-    createMenuButton("INDEX", "index.html");
-    createMenuButton("LIKE", "bio.html");
+    createMenuButton("NETWORK", "index.html");
+    createMenuButton("SHARED", "shared.html");
     createMenuButton("SEARCH", "searching.html");
     createMenuButton("SCROLLING", "scrolling.html");
     createMenuButton("TRACKING", "tracking.html");
