@@ -94,10 +94,10 @@ window.onload = function () {
 
         leftEarth.style.transform = "translateX(-300px)";
         rightEarth.style.transform = "translateX(300px)";
-
         setTimeout(() => {
             menu.style.visibility = "visible";
             menu.style.opacity = "1";
+            container.style.pointerEvents = "none";
         }, 1000);
 
     };
@@ -132,8 +132,10 @@ window.onload = function () {
 
         menu.appendChild(btn);
     }
+
+
     createMenuButton("NETWORK", "index.html");
-    createMenuButton("SHARED", "shared.html");
+    createMenuButton("SHARED", "xueyi/shared.html");
     createMenuButton("SEARCH", "searching.html");
     createMenuButton("SCROLLING", "scrolling.html");
     createMenuButton("TRACKING", "tracking.html");
@@ -142,6 +144,8 @@ window.onload = function () {
     createMenuButton("LOSS OF CONTROL", "loss.html");
     createMenuButton("REFLECTION", "Reflection.html");
     createMenuButton("FINAL", "final.html");
+
+
 
 
 
