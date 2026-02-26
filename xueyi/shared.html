@@ -3,57 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Choice</title>
+    <title>Shared Space</title>
 </head>
 
 <body>
 
-    <script>
-
-        window.onload = function () {
-
-
-            document.body.style.backgroundColor = "black";
-            document.body.style.margin = "0";
-            document.body.style.display = "flex";
-            document.body.style.justifyContent = "center";
-            document.body.style.alignItems = "center";
-            document.body.style.height = "100vh";
-            document.body.style.flexDirection = "column";
-
-
-            let title = document.createElement("h2");
-            document.body.appendChild(title);
-            title.innerText = "Choose what you are interested in:";
-            title.style.color = "white";
-            title.style.fontFamily = "Arial";
-            title.style.marginBottom = "40px";
-
-
-            function createButton(text, left, top) {
-
-                let btn = document.createElement("button");
-                document.body.appendChild(btn);
-
-                btn.innerText = text;
-                btn.style.margin = "10px";
-                btn.style.padding = "10px 20px";
-                btn.style.fontSize = "16px";
-                btn.style.backgroundColor = "white";
-                btn.style.border = "none";
-
-                btn.addEventListener("click", function () {
-                    window.location.href = "page3.html";
-                });
-            }
-
-            createButton("Music");
-            createButton("Fashion");
-            createButton("Politics");
-
-        };
-
-    </script>
+    <script src="shared.js"></script>
 
 </body>
 

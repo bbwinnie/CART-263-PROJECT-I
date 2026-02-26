@@ -136,7 +136,7 @@ window.onload = function () {
 
     createMenuButton("NETWORK", "index.html");
     createMenuButton("SHARED", "xueyi/shared.html");
-    createMenuButton("SEARCH", "searching.html");
+    createMenuButton("SHARED SYSTEM", "xueyi/shared system.html");
     createMenuButton("SCROLLING", "scrolling.html");
     createMenuButton("TRACKING", "tracking.html");
     createMenuButton("RECOMMENDATION", "recommendation.html");
