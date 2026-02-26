@@ -1,11 +1,8 @@
-// ===== 基础设置 =====
 document.body.style.margin = "0";
-document.body.style.backgroundColor = "black";
+document.body.style.background = "black";
 document.body.style.overflow = "hidden";
 document.body.style.fontFamily = "monospace";
-document.body.style.color = "white";
 
-// ===== 创建网格 =====
 let grid = document.createElement("div");
 grid.style.display = "grid";
 grid.style.gridTemplateColumns = "1fr 1fr";
@@ -24,52 +21,65 @@ for (let i = 0; i < 4; i++) {
     grid.appendChild(panel);
     panels.push(panel);
 
-    // LIVE
     let live = document.createElement("div");
-    live.innerText = "🔴 LIVE";
+    live.innerText = "LIVE";
     live.style.position = "absolute";
     live.style.top = "10px";
     live.style.left = "10px";
     live.style.color = "red";
     panel.appendChild(live);
 
-    // viewers
     let viewers = document.createElement("div");
-    let count = 1200;
+    let count = 1000;
     viewers.innerText = count + " watching";
     viewers.style.position = "absolute";
     viewers.style.top = "30px";
     viewers.style.left = "10px";
     panel.appendChild(viewers);
 
-
     setInterval(function () {
-        count += Math.floor(Math.random() * 50);
+        count += Math.floor(Math.random() * 20);
         viewers.innerText = count + " watching";
     }, 1000);
 }
 
 
-function createVideo(src) {
-    let v = document.createElement("video");
-    v.src = src;
-    v.autoplay = true;
-    v.loop = true;
-    v.muted = true;
-    v.playsInline = true;
-    v.style.width = "100%";
-    v.style.height = "100%";
-    v.style.objectFit = "cover";
-    return v;
-}
+let v1 = document.createElement("video");
+v1.src = "3.mp4";
+v1.autoplay = true;
+v1.loop = true;
+v1.muted = true;
+v1.playsInline = true;
+v1.style.width = "100%";
+v1.style.height = "100%";
+v1.style.objectFit = "cover";
+panels[0].appendChild(v1);
 
-let videoA = createVideo("3.mp4");
-let videoB = createVideo("4.mp4");
-let videoC = createVideo("5.mp4");
+let v2 = document.createElement("video");
+v2.src = "4.mp4";
+v2.autoplay = true;
+v2.loop = true;
+v2.muted = true;
+v2.playsInline = true;
+v2.style.width = "100%";
+v2.style.height = "100%";
+v2.style.objectFit = "cover";
+panels[1].appendChild(v2);
 
-panels[0].appendChild(videoA);
-panels[1].appendChild(videoB);
-panels[2].appendChild(videoC);
+let v3 = document.createElement("video");
+v3.src = "5.mp4";
+v3.autoplay = true;
+v3.loop = true;
+v3.muted = true;
+v3.playsInline = true;
+v3.style.width = "100%";
+v3.style.height = "100%";
+v3.style.objectFit = "cover";
+panels[2].appendChild(v3);
+
+panels[0].appendChild(createVideo("3.mp4"));
+panels[1].appendChild(createVideo("4.mp4"));
+panels[2].appendChild(createVideo("5.mp4"));
 
 let camera = document.createElement("video");
 camera.autoplay = true;
@@ -85,73 +95,19 @@ navigator.mediaDevices.getUserMedia({ video: true })
         camera.srcObject = stream;
     });
 
+function flashAndGo() {
 
-
-function createHeart() {
-    let heart = document.createElement("div");
-    heart.innerText = "❤️";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "0px";
-    heart.style.fontSize = "20px";
-    document.body.appendChild(heart);
-
-    let pos = 0;
-    let move = setInterval(function () {
-        pos += 5;
-        heart.style.bottom = pos + "px";
-        if (pos > window.innerHeight) {
-            clearInterval(move);
-            heart.remove();
-        }
-    }, 20);
-}
-
-
-
-let heartInterval = setInterval(createHeart, 1000);
-
-
-setTimeout(function () {
-
-    clearInterval(heartInterval);
-    heartInterval = setInterval(createHeart, 150);
-
-}, 2000);
-
-
-setTimeout(function () {
-
-    document.body.innerHTML = "";
-    document.body.style.backgroundColor = "black";
-
-    let text = document.createElement("div");
-    text.innerText = "YOU ARE PERFORMING.";
-    text.style.position = "absolute";
-    text.style.top = "50%";
-    text.style.left = "50%";
-    text.style.transform = "translate(-50%,-50%)";
-    text.style.fontSize = "36px";
-    text.style.textAlign = "center";
-    document.body.appendChild(text);
-
-}, 4000);
-
-
-setTimeout(function () {
-
-    let flash = document.createElement("div");
-    flash.style.position = "fixed";
-    flash.style.top = "0";
-    flash.style.left = "0";
-    flash.style.width = "100%";
-    flash.style.height = "100%";
-    flash.style.backgroundColor = "white";
-    flash.style.zIndex = "9999";
-    document.body.appendChild(flash);
 
     setTimeout(function () {
-        window.location.href = "page4.html";
-    }, 200);
+        flash.style.opacity = "1";
+    }, 50);
 
-}, 4800);
+
+    setTimeout(function () {
+        window.location.href = "visibility.html";
+    }, 300);
+
+}
+setTimeout(function () {
+    flashAndGo();
+}, 3000);
