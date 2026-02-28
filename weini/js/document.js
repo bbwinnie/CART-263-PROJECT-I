@@ -13,34 +13,40 @@ function setup() {
     grid.style.width = "100vw";
     document.body.appendChild(grid);
 
-    let newText = document.createElement("div");
-    newText.classList.add("beginningText");
-    newText.innerHTML = "<P> save your file <P>"
-    newText.style.color = "black";
-    newText.style.position = "absolute";
-    document.body.appendChild(newText);
-
     for (let i = 0; i < 4; i++) {
-        // ✅ 每个格子
+        // 
         let cell = document.createElement("div");
         cell.classList.add("bkcell");
-        cell.style.overflow = "hidden"; // 防止撑开
+        cell.style.overflow = "hidden";
         cell.style.justifyContent = "center";
+        cell.style.position = "relative";
 
-        // ✅ 图片
+        let text = document.createElement("div");
+        text.innerHTML = "save your file";
+        text.style.position = "absolute";
+        text.style.top = "50%";
+        text.style.left = "50%";
+        text.style.transform = "translate(-50%, -50%)";
+        text.style.color = "#00FF00";
+        text.style.fontSize = "24px";
+        text.style.fontFamily = "Space Mono";
+        text.style.zIndex = "10";
+        cell.appendChild(text);
+
+        // 
         let img = document.createElement("img");
         img.classList.add("bkground_img");
-        img.src = "image/desktop.jpeg";
+        img.src = "image/desktopScreen.gif";
         img.style.width = "100%";
         img.style.height = "100%";
-        img.style.objectFit = "cover";  // 填满格子不变形裁剪
+        img.style.objectFit = "cover";
         img.style.display = "block";
         img.style.borderStyle = "outset";
-
         cell.appendChild(img);
         grid.appendChild(cell);
 
     }
+
 
 
 
