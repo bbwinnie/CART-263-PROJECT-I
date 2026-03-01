@@ -22,6 +22,16 @@ function setup() {
         cell.style.position = "relative";
         cell.style.display = "flex";
 
+        grid.appendChild(cell);
+
+
+        let overlay = document.createElement("div");
+        overlay.style.position = "absolute";
+        overlay.style.inset = "0";
+        overlay.style.zIndex = "10";
+        overlay.style.pointerEvents = "auto"; // overlay 不挡点击（input 例外下面会开）
+        cell.appendChild(overlay);
+
         let text = document.createElement("div");
         let windowText = [
             "Private Windows [Version  10.0.26200.7922] <br> Copyright(c) Velo Corporation. All rights reseerved.",
@@ -32,16 +42,18 @@ function setup() {
         text.innerHTML = windowText[i]
         text.classList.add("text");
         text.style.position = "absolute";
-        text.style.top = "50px";
-        text.style.left = "120px";
-        text.style.transform = "translateY(-50%)";
+        text.style.left = "25%";
+        text.style.top = "18%";
+        text.style.transform = "translateY(0)";
+        text.style.fontSize = "clamp(4px, 0.7vw, 10px)";
         text.style.color = "#00FF00";
         text.style.fontSize = "4px";
         text.style.fontFamily = "Space Mono";
         text.style.zIndex = "10";
         text.style.textAlign = "left";
         text.style.justifyContent = "left";
-        cell.appendChild(text);
+        text.style.pointerEvents = "none";
+        overlay.appendChild(text);
 
         // 
         let img = document.createElement("img");
@@ -51,11 +63,15 @@ function setup() {
         img.style.height = "100%";
         img.style.objectFit = "cover";
         img.style.display = "block";
+        img.style.position = "absolute";
+        img.style.inset = "0";
+        img.style.zIndex = "1";
         cell.appendChild(img);
-        grid.appendChild(cell);
 
 
-        const boxesWithQuestion = [0, 1, 2]; // 想出现在哪些框就写哪些 index
+
+
+        const boxesWithQuestion = [0, 1, 2];
 
         if (boxesWithQuestion.includes(i)) {
             let questionsText = [
@@ -69,67 +85,67 @@ function setup() {
             let question = document.createElement("div");
             question.innerHTML = questionsText[currentQuestion];
             question.style.position = "absolute";
-            question.style.left = "120px";
-            question.style.top = "70px";
-            question.style.transform = "translateY(-50%)";
+            question.style.left = "25%";
+            question.style.top = "25%";
+            question.style.transform = "translateY(0)";
             question.style.color = "#00FF00";
-            question.style.fontSize = "5px";
+            question.style.fontSize = "4.5px";
             question.style.fontFamily = "Space Mono";
             question.style.zIndex = "15";
             question.style.textAlign = "left";
             question.style.justifyContent = "left";
-            cell.appendChild(question);
-
-
+            question.style.pointerEvents = "none";
+            overlay.appendChild(question);
 
             let inputText = document.createElement("div");
             inputText.classList.add("inputText");
-            cell.appendChild(inputText);
+            overlay.appendChild(inputText);
 
             let inputAnswer = document.createElement("input");
             inputAnswer.setAttribute("type", "text");
             inputAnswer.setAttribute("id", `inputField_${i}`);
             inputAnswer.style.position = "absolute";
-            inputAnswer.style.left = "120px";
-            inputAnswer.style.top = "200px";
-            inputAnswer.style.transform = "translateY(-50%)";
-            inputAnswer.style.width = "200px"
+            inputAnswer.style.pointerEvents = "auto";
+            inputAnswer.style.left = "24%";
+            inputAnswer.style.top = "75%";
+            inputAnswer.style.transform = "translateY(0)";
+            inputAnswer.style.width = "45%";
             inputAnswer.style.border = "none";
             inputAnswer.style.background = "rgba(212, 212, 212, 0.3)";
             inputAnswer.style.color = "#00FF00";
             inputAnswer.style.fontFamily = "Space Mono";
-            inputAnswer.style.fontSize = "5px";
+            inputAnswer.style.fontSize = "clamp(5px, 0.8vw, 12px)";
             inputAnswer.style.caretColor = "#00FF00";
-            inputText.appendChild(inputAnswer);
+            inputAnswer.style.zIndex = "20"
+            overlay.appendChild(inputAnswer);
 
 
+            inputAnswer.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    const typed = inputAnswer.value;
+                    console.log("user typed:", typed);
 
+                    currentQuestion++;
 
+                    if (currentQuestion < questionsText.length) {
+                        question.innerHTML += "<br><br>" + questionsText[currentQuestion];
+                    } else {
+                        if (!question.innerHTML.includes("All data received.")) {
+                            question.innerHTML += "<br><br>All data received.";
+                        }
+
+                        inputAnswer.disabled = true;
+                    }
+
+                    inputAnswer.value = "";
+                }
+            });
 
         }
 
-
-
-        // input.addEventListener("keydown", function (event) {
-        //     if (event.key === "Enter") {
-        //         let answer = input.value;
-
-        //         currentQuestion++;
-
-        //         if (currentQuestion < questions.length) {
-        //             text.innerHTML += "<br><br>" + questions[currentQuestion];
-        //         } else {
-        //             text.innerHTML += "<br><br>All data received.";
-        //             input.disabled = true;
-        //         }
-        //     }
-        // })
     }
 
     console.log(document.querySelectorAll(".text"));
-
-
-
 
 
 
