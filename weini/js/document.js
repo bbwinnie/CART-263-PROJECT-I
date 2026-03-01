@@ -21,7 +21,6 @@ function setup() {
         cell.style.justifyContent = "left";
         cell.style.position = "relative";
         cell.style.display = "flex";
-
         grid.appendChild(cell);
 
 
@@ -68,19 +67,35 @@ function setup() {
         img.style.zIndex = "1";
         cell.appendChild(img);
 
-
-
-
         const boxesWithQuestion = [0, 1, 2];
 
         if (boxesWithQuestion.includes(i)) {
             let questionsText = [
                 "What is your name?",
-                "How are you feeling today?",
-                "What are you doing right now?"
+                "Where are you located right now?",
+                "How long have you been online?",
+                "What are you thinking about?",
+                "Do you feel observed?"
             ];
 
+            let autoAnswersByBox = {
+                0: ["Alex", "Toronto.", "5 mins", "Just trying to finish what I started.", "Not really… maybe a little."],
+
+                1: ["Billy", "Montreal.", "1 hours", "I'm thinking about why these questions are being asked.",
+                    "Yes. It feels like this is not random."],
+
+                2: ["Vicky", "New York.", "15 mins",
+                    "Thought patterns detected. Logging cognitive activity.",
+                    "Observation confirmed. Monitoring will continue."]
+            };
+
+            let autoAnswers = autoAnswersByBox[i] || ["Anonymous", "...", "..."];
+
             let currentQuestion = 0;
+            let idleTimer;
+            let finished = false;
+            let userTookOver = false;
+
 
             let question = document.createElement("div");
             question.innerHTML = questionsText[currentQuestion];
@@ -120,35 +135,64 @@ function setup() {
             overlay.appendChild(inputAnswer);
 
 
-            inputAnswer.addEventListener("keydown", (e) => {
-                if (e.key === "Enter") {
-                    const typed = inputAnswer.value;
-                    console.log("user typed:", typed);
+            function startIdleTimer() {
+                clearTimeout(idleTimer);
+                if (finished || userTookOver) return;
 
-                    currentQuestion++;
+                idleTimer = setTimeout(() => {
+                    if (finished || userTookOver) return;
+                    inputAnswer.value = autoAnswers[currentQuestion] ?? "…";
+                    submitAnswer();
+                }, 8000);
+            }
 
-                    if (currentQuestion < questionsText.length) {
-                        question.innerHTML += "<br><br>" + questionsText[currentQuestion];
-                    } else {
-                        if (!question.innerHTML.includes("All data received.")) {
-                            question.innerHTML += "<br><br>All data received.";
-                        }
 
-                        inputAnswer.disabled = true;
-                    }
+            function submitAnswer() {
+                if (finished) return;
 
+                const typed = inputAnswer.value.trim();
+                if (typed === "") return;
+
+                // ✅ 打印用户输入
+                question.innerHTML += `<br><span style="color:#00FF00">> ${typed}</span>`;
+
+                currentQuestion++;
+
+                if (currentQuestion < questionsText.length) {
+                    question.innerHTML += "<br><br>" + questionsText[currentQuestion];
                     inputAnswer.value = "";
+                    startIdleTimer();
+                } else {
+                    if (!question.innerHTML.includes("All data received.")) {
+                        question.innerHTML += "<br><br>All data received.";
+                    }
+                    finished = true;
+                    inputAnswer.disabled = true;
+                    clearTimeout(idleTimer);
+                }
+            }
+
+            // --- ONE listener only ---
+            inputAnswer.addEventListener("keydown", (e) => {
+                // 用户一操作就接管，永久关闭自动回答
+                userTookOver = true;
+                clearTimeout(idleTimer);
+
+                if (e.key === "Enter") {
+                    submitAnswer();
                 }
             });
 
+            // ✅ 最后再启动计时器（一定放在函数定义之后）
+            startIdleTimer();
         }
+
+        console.log(document.querySelectorAll(".text"));
 
     }
 
-    console.log(document.querySelectorAll(".text"));
-
-
-
-
 }
+
+
+
 
