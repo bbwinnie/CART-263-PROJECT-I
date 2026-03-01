@@ -1,9 +1,12 @@
 window.onload = setup
 
 function setup() {
+
+    //set the default browser margin
     document.documentElement.style.margin = "0";
     document.body.style.margin = "0";
 
+    // Create a 2×2 grid container
     let grid = document.createElement("div");
     grid.classList.add("bkgrid");
     grid.style.display = "grid";
@@ -13,8 +16,46 @@ function setup() {
     grid.style.width = "100vw";
     document.body.appendChild(grid);
 
+    // logBox will store the logging terminal (screen 4)
+    let logBox = null;
+
+    // Random integer helper
+    function rand(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // set the fake IP adress
+    function fakeIP() {
+        return `${rand(10, 255)}.${rand(0, 255)}.${rand(0, 255)}.${rand(1, 254)}`;
+    }
+
+    // get the timer
+    function timeStamp() {
+        return new Date().toLocaleTimeString([], { hour12: false });
+    }
+
+    // Push answers into the log screen
+    function pushToLog(screenIndex, questionText, answerText) {
+        // Do nothing if log screen not ready
+        if (!logBox) return;
+
+        // Create a log entry
+        const entry = document.createElement("div");
+        entry.textContent =
+            `[${timeStamp()}] ${fakeIP()} :: SCREEN_${screenIndex + 1}\n` +
+            `> ${questionText}\n` +
+            `> ${answerText}\n\n`;
+
+        // Append to log
+        logBox.appendChild(entry);
+
+        // Auto-scroll to bottom
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // ----------- Create 4 screens -----------
     for (let i = 0; i < 4; i++) {
-        // 
+        // Create each grid cell
         let cell = document.createElement("div");
         cell.classList.add("bkcell");
         cell.style.overflow = "hidden";
@@ -23,14 +64,15 @@ function setup() {
         cell.style.display = "flex";
         grid.appendChild(cell);
 
-
+        // Create overlay layer
         let overlay = document.createElement("div");
         overlay.style.position = "absolute";
         overlay.style.inset = "0";
         overlay.style.zIndex = "10";
-        overlay.style.pointerEvents = "auto"; // overlay 不挡点击（input 例外下面会开）
+        overlay.style.pointerEvents = "auto";
         cell.appendChild(overlay);
 
+        //Creat fake OS header text
         let text = document.createElement("div");
         let windowText = [
             "Private Windows [Version  10.0.26200.7922] <br> Copyright(c) Velo Corporation. All rights reseerved.",
@@ -54,7 +96,7 @@ function setup() {
         text.style.pointerEvents = "none";
         overlay.appendChild(text);
 
-        // 
+        // set background image
         let img = document.createElement("img");
         img.classList.add("bkground_img");
         img.src = "image/desktopScreen.gif";
@@ -67,9 +109,34 @@ function setup() {
         img.style.zIndex = "1";
         cell.appendChild(img);
 
+        //  set the array for three screen
         const boxesWithQuestion = [0, 1, 2];
 
+        //Screen 4 = Log terminal
+        if (i === 3) {
+
+            //set the logBox 
+            logBox = document.createElement("div");
+            logBox.style.position = "absolute";
+            logBox.style.left = "25%";
+            logBox.style.top = "25%";
+            logBox.style.width = "80%";
+            logBox.style.height = "63%";
+            logBox.style.color = "#00FF00";
+            logBox.style.fontFamily = "Space Mono";
+            logBox.style.fontSize = "4px";
+            logBox.style.zIndex = "20";
+            logBox.style.overflowY = "auto";
+            logBox.style.overflowX = "hidden";
+            logBox.style.wordBreak = "break-word";
+            logBox.style.whiteSpace = "pre-wrap";
+            overlay.appendChild(logBox);
+        }
+
+        //First 3 screens = Question system
         if (boxesWithQuestion.includes(i)) {
+
+            // Questions list
             let questionsText = [
                 "What is your name?",
                 "Where are you located right now?",
@@ -78,6 +145,7 @@ function setup() {
                 "Do you feel observed?"
             ];
 
+            // Auto answers (simulate AI takeover)
             let autoAnswersByBox = {
                 0: ["Alex", "Toronto.", "5 mins", "Just trying to finish what I started.", "Not really… maybe a little."],
 
@@ -89,14 +157,15 @@ function setup() {
                     "Observation confirmed. Monitoring will continue."]
             };
 
-            let autoAnswers = autoAnswersByBox[i] || ["Anonymous", "...", "..."];
+            let autoAnswers = autoAnswersByBox[i]
 
+            //set the default setting
             let currentQuestion = 0;
             let idleTimer;
             let finished = false;
             let userTookOver = false;
 
-
+            //Create question display
             let question = document.createElement("div");
             question.innerHTML = questionsText[currentQuestion];
             question.style.position = "absolute";
@@ -116,6 +185,7 @@ function setup() {
             inputText.classList.add("inputText");
             overlay.appendChild(inputText);
 
+            // Create input field
             let inputAnswer = document.createElement("input");
             inputAnswer.setAttribute("type", "text");
             inputAnswer.setAttribute("id", `inputField_${i}`);
@@ -134,7 +204,7 @@ function setup() {
             inputAnswer.style.zIndex = "20"
             overlay.appendChild(inputAnswer);
 
-
+            // If idle 8s → auto answer 
             function startIdleTimer() {
                 clearTimeout(idleTimer);
                 if (finished || userTookOver) return;
@@ -146,18 +216,24 @@ function setup() {
                 }, 8000);
             }
 
-
+            //Submit answer
             function submitAnswer() {
                 if (finished) return;
 
                 const typed = inputAnswer.value.trim();
                 if (typed === "") return;
 
-                // ✅ 打印用户输入
+                const currentQ = questionsText[currentQuestion];
+
+                //// Show answer locally
                 question.innerHTML += `<br><span style="color:#00FF00">> ${typed}</span>`;
+
+                // Also send to log screen
+                pushToLog(i, currentQ, typed);
 
                 currentQuestion++;
 
+                // Move to next question
                 if (currentQuestion < questionsText.length) {
                     question.innerHTML += "<br><br>" + questionsText[currentQuestion];
                     inputAnswer.value = "";
@@ -167,14 +243,16 @@ function setup() {
                         question.innerHTML += "<br><br>All data received.";
                     }
                     finished = true;
+                    inputAnswer.value = "";
                     inputAnswer.disabled = true;
                     clearTimeout(idleTimer);
                 }
             }
 
-            // --- ONE listener only ---
+
+            // Press Enter to submit
             inputAnswer.addEventListener("keydown", (e) => {
-                // 用户一操作就接管，永久关闭自动回答
+
                 userTookOver = true;
                 clearTimeout(idleTimer);
 
@@ -183,7 +261,6 @@ function setup() {
                 }
             });
 
-            // ✅ 最后再启动计时器（一定放在函数定义之后）
             startIdleTimer();
         }
 
