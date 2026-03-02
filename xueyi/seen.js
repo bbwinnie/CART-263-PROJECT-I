@@ -73,9 +73,10 @@ window.onload = function () {
 
 class UserDot {
     constructor(x, y) {
-        this.x = x;
+        this.x = x
         this.y = y;
         this.size = 10;
+        this.lastLightTime = 0;
 
         this.dotDiv = document.createElement("div");
     }
@@ -101,7 +102,22 @@ class UserDot {
         this.x = event.clientX;
         this.y = event.clientY;
         this.updatePosition();
+        this.leaveTrail();
     }
+
+    leaveTrail() {
+
+        let now = Date.now();
+
+        if (now - this.lastLightTime < 80) {
+            return;
+        }
+
+        this.lastLightTime = now;
+
+        centeredLight(this.x, this.y, document.body);
+    }
+
 }
 
 class TrackerDot {
@@ -139,3 +155,39 @@ class TrackerDot {
 }
 
 
+function centeredLight(offsetX, offsetY, parentCanvas) {
+
+    let light = document.createElement("div");
+
+    light.style.position = "absolute";
+    light.style.left = offsetX - 3 + "px";
+    light.style.top = offsetY - 3 + "px";
+    light.style.width = "6px";
+    light.style.height = "6px";
+    light.style.borderRadius = "50%";
+
+    light.style.background = "cyan";
+    light.style.boxShadow = "0 0 15px cyan";
+    light.style.pointerEvents = "none";
+
+    parentCanvas.appendChild(light);
+
+
+
+    light.style.opacity = "0";
+    light.style.transition = "none";
+
+    setTimeout(() => {
+        light.style.opacity = "1";
+    }, 10);
+
+    setTimeout(() => {
+        light.style.opacity = "0";
+    }, 800);
+
+    setTimeout(() => {
+        light.remove();
+    }, 900);
+
+
+}

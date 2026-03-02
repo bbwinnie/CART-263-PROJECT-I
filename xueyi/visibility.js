@@ -37,4 +37,4 @@ setTimeout(function () {
 
 setTimeout(function () {
     window.location.href = "Seen.html";
-}, 300);
+}, 1000);
