@@ -43,7 +43,6 @@ function setup() {
     location.style.textDecoration = "none";
     cell.appendChild(location);
 
-
     let dinosaur = document.createElement("img");
     dinosaur.classList.add("dinosaur_png");
     dinosaur.src = "image/dinosaur.gif";
@@ -56,6 +55,64 @@ function setup() {
     //dinosaur.style.transform = "translate(-50%, -50%)";
     dinosaur.style.zIndex = "3";
     cell.appendChild(dinosaur);
+
+    let parent = document.createElement("div");
+    parent.classList.add("parent");
+    cell.appendChild(parent);
+
+    let fileA = document.createElement("img");
+    fileA.src = "image/file.png";
+    fileA.classList.add("box");
+    fileA.setAttribute("id", "draggable-box-a");
+    fileA.setAttribute("draggable", "true");
+    fileA.style.width = "175px";
+    fileA.style.height = "185px";
+    fileA.style.display = "block";
+    fileA.style.position = "absolute";
+    fileA.style.top = "150px";
+    fileA.style.left = "90%";
+    fileA.style.zIndex = "8";
+    parent.appendChild(fileA);
+
+    let fileB = document.createElement("img");
+    fileB.src = "image/img.png";
+    fileB.classList.add("box");
+    fileB.setAttribute("id", "draggable-box-b");
+    fileB.setAttribute("draggable", "true");
+    fileB.style.width = "175px";
+    fileB.style.height = "185px";
+    fileB.style.display = "block";
+    fileB.style.position = "absolute";
+    fileB.style.top = "450px";
+    fileB.style.left = "90%";
+    fileB.style.zIndex = "8";
+    parent.appendChild(fileB);
+
+    let fileC = document.createElement("img");
+    fileC.src = "image/doc.png";
+    fileC.classList.add("box");
+    fileC.setAttribute("id", "draggable-box-c");
+    fileC.setAttribute("draggable", "true");
+    fileC.style.width = "175px";
+    fileC.style.height = "185px";
+    fileC.style.display = "block";
+    fileC.style.position = "absolute";
+    fileC.style.top = "750px";
+    fileC.style.left = "90%";
+    fileC.style.zIndex = "8";
+    parent.appendChild(fileC);
+
+    //callback function
+    console.log("drag ex");
+
+    let handleDragging = function (event) {
+        console.log("on drag")
+        //HERE :: the event target refers to the object being dragged...
+        console.log(event.target.id);
+    };
+    window.addEventListener("dragstart", handleDragging);
+
+
 
 
 }
