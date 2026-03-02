@@ -1,0 +1,69 @@
+.node {
+    box-shadow:
+        0 0 15px #00ffff,
+        0 0 40px #00ffff,
+        0 0 80px rgba(0, 255, 255, 0.6);
+}
+
+.core {
+    box-shadow:
+        0 0 20px #00ffff,
+        0 0 60px #00ffff,
+        0 0 120px rgba(0, 255, 255, 0.8);
+    animation: heartBeat 2s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    30% {
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+
+    --data-intensity: 0.05;
+    --scan-speed: 6s;
+
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 255, 255, var(--data-intensity)) 30%,
+            rgba(0, 255, 255, calc(var(--data-intensity) * 1.5)) 50%,
+            rgba(0, 255, 255, var(--data-intensity)) 70%,
+            transparent 100%);
+
+    animation: scan var(--scan-speed) linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}

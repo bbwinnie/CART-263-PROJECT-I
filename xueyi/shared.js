@@ -1,11 +1,14 @@
 document.body.style.margin = "0";
-document.body.style.backgroundColor = "black";
 document.body.style.overflow = "hidden";
 document.body.style.height = "100vh";
 
+let dataIntensity = 0.05;
+let scanSpeed = 6;
 let sharedLoad = 0;
 let nodes = [];
 let lines = [];
+
+
 
 function createControlPanel() {
 
@@ -26,6 +29,29 @@ function createControlPanel() {
 
 function updateSharedState() {
 
+    dataIntensity += 0.05;
+    document.body.style.filter = `brightness(${1 + dataIntensity})`;
+
+    scanSpeed -= 0.3;
+
+    if (scanSpeed < 2) {
+        scanSpeed = 2;
+    }
+
+    document.body.style.setProperty(
+        "--scan-speed",
+        scanSpeed + "s"
+    );
+
+    if (dataIntensity > 0.8) {
+        dataIntensity = 0.8;
+    }
+
+    document.body.style.setProperty(
+        "--data-intensity",
+        dataIntensity
+    );
+
     sharedLoad += 10;
     if (sharedLoad > 100) sharedLoad = 100;
 
@@ -36,6 +62,8 @@ function updateSharedState() {
             window.location.href = "shared system.html";
         }, 800);
     }
+
+
 }
 
 class Node {
@@ -67,6 +95,7 @@ class Node {
 
         document.body.appendChild(this.nodeDiv);
 
+
         this.nodeDiv.style.position = "absolute";
         this.nodeDiv.style.left = this.x + "px";
         this.nodeDiv.style.top = this.y + "px";
@@ -94,7 +123,6 @@ class Line {
 
         this.lineDiv = document.createElement("div");
     }
-
     render() {
 
         document.body.appendChild(this.lineDiv);
@@ -109,18 +137,42 @@ class Line {
         this.lineDiv.style.left = this.startNode.x + "px";
         this.lineDiv.style.top = this.startNode.y + "px";
         this.lineDiv.style.width = "0px";
-        this.lineDiv.style.height = "2px";
-        this.lineDiv.style.backgroundColor = "rgba(0,255,255,0.5)";
+        this.lineDiv.style.height = "3px";
         this.lineDiv.style.transformOrigin = "0 0";
         this.lineDiv.style.transform = `rotate(${angle}deg)`;
-        this.lineDiv.style.transition = "width 0.4s ease";
+        this.lineDiv.style.transition = "width 0.3s ease";
 
+        // Base color (stable cyan line)
+        this.lineDiv.style.background = "cyan";
+        this.lineDiv.style.boxShadow = "0 0 10px cyan";
 
+        // Expand the line
         setTimeout(() => {
             this.lineDiv.style.width = distance + "px";
-        }, 50);
+        }, 10);
+
+        // ⚡ Lightning flashing effect
+        let lightning = setInterval(() => {
+
+            // Random flash between white and cyan
+            this.lineDiv.style.background =
+                Math.random() > 0.5 ? "white" : "cyan";
+
+            this.lineDiv.style.boxShadow =
+                "0 0 20px cyan, 0 0 40px white";
+
+        }, 40);
+
+        // Stop lightning after 0.4 seconds
+        setTimeout(() => {
+            clearInterval(lightning);
+            this.lineDiv.style.background = "cyan";
+            this.lineDiv.style.boxShadow = "0 0 10px cyan";
+        }, 400);
     }
+
 }
+
 
 function createNetwork() {
 
@@ -129,6 +181,7 @@ function createNetwork() {
 
     let center = new Node(centerX, centerY, 80);
     center.render();
+    center.nodeDiv.classList.add("core");
     nodes.push(center);
 
     center.nodeDiv.addEventListener("click", function () {
@@ -148,3 +201,4 @@ function createNetwork() {
 
 createNetwork();
 createControlPanel();
+
