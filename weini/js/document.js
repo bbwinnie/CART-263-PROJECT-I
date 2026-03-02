@@ -86,7 +86,6 @@ function setup() {
         text.style.left = "25%";
         text.style.top = "18%";
         text.style.transform = "translateY(0)";
-        text.style.fontSize = "clamp(4px, 0.7vw, 10px)";
         text.style.color = "#00FF00";
         text.style.fontSize = "4px";
         text.style.fontFamily = "Space Mono";
