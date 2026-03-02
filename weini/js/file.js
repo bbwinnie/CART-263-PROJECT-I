@@ -188,16 +188,6 @@ function setup() {
     };
     window.addEventListener("dragstart", handleDragging);
 
-    // //
-    // let handleDraggingStop = function (event) {
-    //     console.log("on stop")
-    //     //HERE :: the event target refers to the object being dragged...
-    //     console.log(event.target.id);
-    //     // HERE - this refers to the window
-    //     console.log(this);
-    // };
-    // window.addEventListener("dragend", handleDraggingStop);
-
     //Allow drop and check the if drag over
     dropZone.addEventListener("dragover", function (event) {
         event.preventDefault();
@@ -205,8 +195,10 @@ function setup() {
         console.log(event);
     });
 
+    //check if the file has been drop into windows
     dropZone.addEventListener("drop", function (event) {
 
+        //unlock the drag
         event.preventDefault();
 
         let theObjId = event.dataTransfer.getData("objDraggedID");
@@ -219,10 +211,10 @@ function setup() {
         overlay.style.position = "absolute";
         overlay.style.inset = "0";
         overlay.style.zIndex = "999";
-        overlay.style.pointerEvents = "auto"; // 必须能点
+        overlay.style.pointerEvents = "auto";
         dropZone.appendChild(overlay);
 
-        // ✅ 2) 弹窗图片
+        // set the windows
         let deletWindows = document.createElement("img");
         deletWindows.src = "image/saveWindows.png";
         deletWindows.style.width = "70%";
@@ -231,9 +223,10 @@ function setup() {
         deletWindows.style.top = "50%";
         deletWindows.style.transform = "translate(-50%, -50%)";
         deletWindows.style.display = "block";
-        deletWindows.style.pointerEvents = "none"; // 图片不挡点击
+        deletWindows.style.pointerEvents = "none";
         overlay.appendChild(deletWindows);
 
+        //set the button
         let okBtn = document.createElement("button");
         okBtn.textContent = "OK";
         okBtn.type = "button";
@@ -247,14 +240,16 @@ function setup() {
         okBtn.style.border = "5px solid black";
         okBtn.style.padding = "30px 80px";
         okBtn.style.cursor = "pointer";
-        okBtn.style.zIndex = "1000"; // 保证在图片上面
+        okBtn.style.zIndex = "1000";
         overlay.appendChild(okBtn);
 
+        //check the button has been click
         okBtn.addEventListener("click", function () {
-            // 关弹窗（图片+按钮一起消失）
+
+            //close the windows
             overlay.remove();
 
-            // ✅ 现在才真正把文件放进去
+            // put the file inside windows
             let draggedEl = document.getElementById(theObjId);
             draggedEl.style.position = "absolute";
             draggedEl.classList.add("locked");
@@ -271,7 +266,7 @@ function setup() {
             dropZone.appendChild(draggedEl);
             draggedEl.classList.add("inFolder");
 
-            // ✅ 改名逻辑
+            //change the file names
             if (dropCount < 3) {
                 let textEl = draggedEl.querySelector("p");
                 if (textEl) {
