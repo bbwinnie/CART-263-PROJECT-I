@@ -87,7 +87,7 @@ function setup() {
         text.style.top = "18%";
         text.style.transform = "translateY(0)";
         text.style.color = "#00FF00";
-        text.style.fontSize = "4px";
+        text.style.fontSize = "10px";
         text.style.fontFamily = "Space Mono";
         text.style.zIndex = "10";
         text.style.textAlign = "left";
@@ -123,7 +123,7 @@ function setup() {
             logBox.style.height = "63%";
             logBox.style.color = "#00FF00";
             logBox.style.fontFamily = "Space Mono";
-            logBox.style.fontSize = "4px";
+            logBox.style.fontSize = "10px";
             logBox.style.zIndex = "20";
             logBox.style.overflowY = "auto";
             logBox.style.overflowX = "hidden";
@@ -172,7 +172,7 @@ function setup() {
             question.style.top = "25%";
             question.style.transform = "translateY(0)";
             question.style.color = "#00FF00";
-            question.style.fontSize = "4.5px";
+            question.style.fontSize = "12px";
             question.style.fontFamily = "Space Mono";
             question.style.zIndex = "15";
             question.style.textAlign = "left";
