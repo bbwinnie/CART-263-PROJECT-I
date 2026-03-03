@@ -47,3 +47,42 @@
     transform: scale(1.25);
     box-shadow: 0 0 18px rgba(117, 94, 94, 0.9);
 }
+
+
+.cursor {
+    position: fixed;
+    cursor: auto;
+    left: 0;
+    top: 0;
+    /* width: 18px;
+    height: 18px; */
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    /* border-radius: 50%; */
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 999999;
+    mix-blend-mode: difference;
+
+}
+
+.cursor.c2 {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+    opacity: .7;
+}
+
+.cursor.c3 {
+    width: 28px;
+    height: 28px;
+    border-width: 2px;
+    opacity: .35;
+}
+
+.cursor.c4 {
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    opacity: .9;
+}

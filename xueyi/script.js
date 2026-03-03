@@ -112,7 +112,7 @@ window.onload = function () {
     createMenuButton("INPUT or TRACE", "../weini/document.html");
     createMenuButton("STORAGE or LOSS", "../weini/file.html");
     createMenuButton("CAN YOU SEE ME NOW?", "../weini/map.html");
-    createMenuButton("REFLECTION", "Reflection.html");
+    createMenuButton("STAY WITH ME", "../weini/click.html");
     createMenuButton("FINAL", "final.html");
     container.onclick = function () {
 
