@@ -30,6 +30,8 @@ let lastX = 0;
 let lastY = 0;
 let triggered = false;
 let instability = 0;
+let collapseArmed = false;
+let stayTimer = null;
 
 document.addEventListener("mousemove", function (e) {
 
