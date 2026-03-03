@@ -28,7 +28,7 @@ secretText.style.position = "fixed";
 secretText.style.left = "50%";
 secretText.style.top = "50%";
 secretText.style.transform = "translate(-50%, -50%)";
-secretText.style.fontFamily = "monospace";
+secretText.style.fontFamily = "Space Mono";
 secretText.style.fontSize = "24px";
 secretText.style.letterSpacing = "6px";
 secretText.style.color = "white";
@@ -39,7 +39,7 @@ document.body.appendChild(secretText);
 
 // 🐛 Bugs
 let bugs = [];
-let bugImages = ["bug1.png", "bug2.png", "bug3.png", "bug4.png", "bug5.png", "bug6.png", "bug7.png", "bug8.png", "bug.png"];
+let bugImages = ["img/bug1.png", "img/bug2.png", "img/bug3.png", "img/bug4.png", "img/bug5.png", "img/bug6.png", "img/bug7.png", "img/bug8.png", "img/bug.png"];
 
 function placeBugs() {
 
@@ -148,12 +148,10 @@ document.addEventListener("mousemove", function (e) {
 
 });
 
-
-
 window.addEventListener("keydown", function (e) {
 
     if (e.key === "ArrowRight") {
-        window.location.href = "final.html";
+        window.location.href = "../weini/document.html";
     }
 
 });

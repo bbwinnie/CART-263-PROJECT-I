@@ -59,7 +59,7 @@ window.onload = function () {
     let leftEarth = document.createElement("img");
     container.appendChild(leftEarth);
 
-    leftEarth.src = "2.png";
+    leftEarth.src = "img/2.png";
     leftEarth.style.width = "1000px";
     leftEarth.style.clipPath = "inset(0 50% 0 0)";
     leftEarth.style.transition = "1s";
@@ -68,7 +68,7 @@ window.onload = function () {
     let rightEarth = document.createElement("img");
     container.appendChild(rightEarth);
 
-    rightEarth.src = "2.png";
+    rightEarth.src = "img/2.png";
     rightEarth.style.width = "1000px";
     rightEarth.style.position = "absolute";
     rightEarth.style.left = "0";
@@ -88,6 +88,8 @@ window.onload = function () {
     menu.style.flexDirection = "column";
     menu.style.alignItems = "center";
     menu.style.gap = "10px";
+    menu.style.fontFamily = "Space Mono";
+    menu.style.fontWeight = "normal";
 
 
     function createMenuButton(text, link) {
@@ -101,8 +103,6 @@ window.onload = function () {
 
         menu.appendChild(btn);
     }
-
-
 
     createMenuButton("NETWORK", "script.html");
     createMenuButton("SHARED", "shard.html");

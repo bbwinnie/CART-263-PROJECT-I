@@ -7,9 +7,10 @@ document.body.style.display = "flex";
 document.body.style.justifyContent = "center";
 document.body.style.alignItems = "center";
 document.body.style.height = "100vh";
+document.body.style.fontFamily = "Space Mono";
 
 let img = document.createElement("img");
-img.src = "11.png";
+img.src = "img/11.png";
 
 img.style.position = "fixed";
 img.style.top = "50%";

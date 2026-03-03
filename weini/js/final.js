@@ -54,7 +54,7 @@ window.onload = function () {
     let leftEarth = document.createElement("img");
     container.appendChild(leftEarth);
 
-    leftEarth.src = "../xueyi/2.png";
+    leftEarth.src = "../xueyi/img/2.png";
     leftEarth.style.width = "1000px";
     leftEarth.style.clipPath = "inset(0 50% 0 0)";
     leftEarth.style.transition = "1s";
@@ -63,7 +63,7 @@ window.onload = function () {
     let rightEarth = document.createElement("img");
     container.appendChild(rightEarth);
 
-    rightEarth.src = "../xueyi/2.png";
+    rightEarth.src = "../xueyi/img/2.png";
     rightEarth.style.width = "1000px";
     rightEarth.style.position = "absolute";
     rightEarth.style.left = "0";

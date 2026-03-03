@@ -1,7 +1,7 @@
 document.body.style.margin = "0";
 document.body.style.background = "black";
 document.body.style.overflow = "hidden";
-document.body.style.fontFamily = "monospace";
+document.body.style.fontFamily = "Space Mono";
 
 let grid = document.createElement("div");
 grid.style.display = "grid";
@@ -61,9 +61,9 @@ function createVideo(src) {
 
 
 
-let v1 = createVideo("./3.mp4");
-let v2 = createVideo("./4.mp4");
-let v3 = createVideo("./5.mp4");
+let v1 = createVideo("img/3.mp4");
+let v2 = createVideo("img/4.mp4");
+let v3 = createVideo("img/5.mp4");
 
 panels[0].appendChild(v1);
 panels[1].appendChild(v2);

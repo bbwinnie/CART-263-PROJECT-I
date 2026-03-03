@@ -17,7 +17,7 @@ function createControlPanel() {
     panel.style.top = "20px";
     panel.style.left = "20px";
     panel.style.color = "cyan";
-    panel.style.fontFamily = "monospace";
+    panel.style.fontFamily = "Space Mono";
     panel.style.fontSize = "20px";
 
     panel.innerHTML = `
