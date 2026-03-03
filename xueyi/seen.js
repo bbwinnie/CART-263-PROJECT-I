@@ -1,230 +1,76 @@
-let user;
-let tracker;
-
-let startBtn = document.createElement("button");
-startBtn.innerText = "START";
-document.body.appendChild(startBtn);
-
-startBtn.style.position = "fixed";
-startBtn.style.top = "50%";
-startBtn.style.left = "50%";
-startBtn.style.transform = "translate(-50%, -50%)";
-startBtn.style.padding = "12px 30px";
-startBtn.style.fontFamily = "monospace";
-startBtn.style.fontSize = "16px";
-startBtn.style.letterSpacing = "3px";
-startBtn.style.cursor = "pointer";
-startBtn.style.border = "1px solid black";
-startBtn.style.background = "white";
-startBtn.style.zIndex = "50";
-
-let bar = document.createElement("div");
-bar.style.position = "fixed";
-bar.style.top = "0";
-bar.style.left = "0";
-bar.style.height = "6px";
-bar.style.background = "black";
-bar.style.width = "100%";
-bar.style.transition = "width 0.05s linear";
-document.body.appendChild(bar);
+/*
+  SEEN — Hidden Message Interaction
+  Move the spotlight to reveal the hidden truth.
+*/
 
 document.body.style.margin = "0";
+document.body.style.background = "black";
 document.body.style.overflow = "hidden";
 
-document.body.style.backgroundImage = "url('3.png')";
-document.body.style.backgroundSize = "cover";
-document.body.style.backgroundPosition = "center 60px";
-document.body.style.backgroundRepeat = "no-repeat";
+
+// 🔎 Create spotlight
+let spotlight = document.createElement("div");
+spotlight.style.position = "fixed";
+spotlight.style.width = "300px";
+spotlight.style.height = "300px";
+spotlight.style.borderRadius = "50%";
+spotlight.style.pointerEvents = "none";
+spotlight.style.boxShadow =
+    "0 0 60px rgba(255,255,255,0.4), 0 0 0 2000px rgba(0,0,0,0.95)";
+spotlight.style.transition = "left 0.05s, top 0.05s";
+spotlight.style.zIndex = "10";
+
+document.body.appendChild(spotlight);
 
 
+// ✍ Hidden message
+let secretText = document.createElement("div");
+secretText.innerText = "YOU ARE NOT INVISIBLE";
+secretText.style.position = "absolute";
+secretText.style.left = "50%";
+secretText.style.top = "50%";
+secretText.style.transform = "translate(-50%, -50%)";
+secretText.style.fontFamily = "monospace";
+secretText.style.fontSize = "24px";
+secretText.style.letterSpacing = "6px";
+secretText.style.color = "white";
+secretText.style.opacity = "0";
+secretText.style.transition = "opacity 0.6s ease, letter-spacing 0.6s ease";
+
+document.body.appendChild(secretText);
 
 
-let rule = document.createElement("div");
-rule.innerText = "Evade tracking for 8 seconds.";
-rule.style.position = "absolute";
-rule.style.top = "50%";
-rule.style.left = "50%";
-rule.style.transform = "translate(-50%, -50%)";
-rule.style.color = "black";
-rule.style.fontFamily = "monospace";
-rule.style.fontSize = "24px";
-rule.style.textAlign = "center";
-rule.style.zIndex = "20";
-
-let start = Date.now();
-
-setInterval(function () {
-    let elapsed = Date.now() - start;
-    let remaining = 8000 - elapsed;
-    if (remaining > 0) {
-        bar.style.width = (remaining / 8000) * 100 + "%";
-    }
-}, 30);
-
-document.body.appendChild(rule);
-
-setTimeout(function () {
-    rule.remove();
-}, 2000);
-
-window.onload = function () {
-
-    let survived = true;
-    let timeLimit = 8000;
-
-    setTimeout(function () {
-        if (survived) {
-            window.location.href = "page6.html";
-        }
-    }, timeLimit);
-
-    document.body.style.margin = "0";
-
-    user = new UserDot(200, 200);
-    user.render();
-
-    tracker = new TrackerDot(50, 50);
-    tracker.render();
-
-    document.addEventListener("mousemove", function (event) {
-        user.followMouse(event);
-    });
-
-    setInterval(function () {
-
-        tracker.chase(user);
-
-        let dx = user.x - tracker.x;
-        let dy = user.y - tracker.y;
-
-        if (Math.abs(dx) < 5 && Math.abs(dy) < 5) {
-
-            survived = false;
-
-            document.body.innerHTML =
-                "<h1 style='color:black;text-align:center;margin-top:40vh;font-family:monospace;'>IDENTITY CAPTURED</h1>";
-        }
-    }, 30);
-}
+let revealed = false;
 
 
-class UserDot {
-    constructor(x, y) {
-        this.x = x
-        this.y = y;
-        this.size = 10;
-        this.lastLightTime = 0;
+// 🎯 Move spotlight with mouse
+document.addEventListener("mousemove", function (e) {
 
-        this.dotDiv = document.createElement("div");
-    }
+    spotlight.style.left = e.clientX - 150 + "px";
+    spotlight.style.top = e.clientY - 150 + "px";
 
-    render() {
-        this.dotDiv.style.width = this.size + "px";
-        this.dotDiv.style.height = this.size + "px";
-        this.dotDiv.style.background = "yellow";
-        this.dotDiv.style.borderRadius = "50%";
-        this.dotDiv.style.position = "absolute";
+    // Calculate distance to center text
+    let centerX = window.innerWidth / 2;
+    let centerY = window.innerHeight / 2;
 
-        document.body.appendChild(this.dotDiv);
+    let dx = e.clientX - centerX;
+    let dy = e.clientY - centerY;
+    let distance = Math.sqrt(dx * dx + dy * dy);
 
-        this.updatePosition();
-    }
+    if (distance < 140) {
+        secretText.style.opacity = "1";
 
-    updatePosition() {
-        this.dotDiv.style.left = this.x + "px";
-        this.dotDiv.style.top = this.y + "px";
-    }
+        if (!revealed) {
+            revealed = true;
 
-    followMouse(event) {
-        this.x = event.clientX;
-        this.y = event.clientY;
-        this.updatePosition();
-        this.leaveTrail();
-    }
-
-    leaveTrail() {
-
-        let now = Date.now();
-
-        if (now - this.lastLightTime < 80) {
-            return;
+            // small cinematic pause
+            setTimeout(() => {
+                window.location.href = "visibility.html";
+            }, 1200);
         }
 
-        this.lastLightTime = now;
-
-        centeredLight(this.x, this.y, document.body);
+    } else {
+        secretText.style.opacity = "0";
     }
 
-}
-
-class TrackerDot {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = 10;
-        this.speed = 0.1;
-
-        this.dotDiv = document.createElement("div");
-    }
-
-    render() {
-        this.dotDiv.style.width = this.size + "px";
-        this.dotDiv.style.height = this.size + "px";
-        this.dotDiv.style.background = "red";
-        this.dotDiv.style.borderRadius = "50%";
-        this.dotDiv.style.position = "absolute";
-
-        document.body.appendChild(this.dotDiv);
-
-        this.updatePosition();
-    }
-
-    updatePosition() {
-        this.dotDiv.style.left = this.x + "px";
-        this.dotDiv.style.top = this.y + "px";
-    }
-
-    chase(target) {
-        this.x += (target.x - this.x) * this.speed;
-        this.y += (target.y - this.y) * this.speed;
-        this.updatePosition();
-    }
-}
-
-
-function centeredLight(offsetX, offsetY, parentCanvas) {
-
-    let light = document.createElement("div");
-
-    light.style.position = "absolute";
-    light.style.left = offsetX - 3 + "px";
-    light.style.top = offsetY - 3 + "px";
-    light.style.width = "6px";
-    light.style.height = "6px";
-    light.style.borderRadius = "50%";
-
-    light.style.background = "cyan";
-    light.style.boxShadow = "0 0 15px cyan";
-    light.style.pointerEvents = "none";
-
-    parentCanvas.appendChild(light);
-
-
-
-    light.style.opacity = "0";
-    light.style.transition = "none";
-
-    setTimeout(() => {
-        light.style.opacity = "1";
-    }, 10);
-
-    setTimeout(() => {
-        light.style.opacity = "0";
-    }, 800);
-
-    setTimeout(() => {
-        light.remove();
-    }, 900);
-
-
-}
+});
