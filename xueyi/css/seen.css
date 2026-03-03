@@ -11,3 +11,29 @@ button:hover {
 button:active {
     transform: translate(-50%, -50%) scale(0.95);
 }
+
+.bug {
+    animation: crawl 4s linear infinite alternate;
+}
+
+@keyframes crawl {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    25% {
+        transform: translate(15px, -10px);
+    }
+
+    50% {
+        transform: translate(-10px, 20px);
+    }
+
+    75% {
+        transform: translate(20px, 5px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}

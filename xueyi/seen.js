@@ -2,31 +2,29 @@
   SEEN — Hidden Message Interaction
   Move the spotlight to reveal the hidden truth.
 */
-
+let hoverTimer = null;
+let hovering = false;
 document.body.style.margin = "0";
 document.body.style.background = "black";
 document.body.style.overflow = "hidden";
 
-
-// 🔎 Create spotlight
+// 🔎 Spotlight
 let spotlight = document.createElement("div");
 spotlight.style.position = "fixed";
-spotlight.style.width = "300px";
-spotlight.style.height = "300px";
+spotlight.style.width = "320px";
+spotlight.style.height = "320px";
 spotlight.style.borderRadius = "50%";
 spotlight.style.pointerEvents = "none";
 spotlight.style.boxShadow =
-    "0 0 60px rgba(255,255,255,0.4), 0 0 0 2000px rgba(0,0,0,0.95)";
+    "0 0 70px rgba(255,255,255,0.35), 0 0 0 2500px rgba(0,0,0,0.95)";
 spotlight.style.transition = "left 0.05s, top 0.05s";
 spotlight.style.zIndex = "10";
-
 document.body.appendChild(spotlight);
-
 
 // ✍ Hidden message
 let secretText = document.createElement("div");
 secretText.innerText = "YOU ARE NOT INVISIBLE";
-secretText.style.position = "absolute";
+secretText.style.position = "fixed";
 secretText.style.left = "50%";
 secretText.style.top = "50%";
 secretText.style.transform = "translate(-50%, -50%)";
@@ -35,42 +33,117 @@ secretText.style.fontSize = "24px";
 secretText.style.letterSpacing = "6px";
 secretText.style.color = "white";
 secretText.style.opacity = "0";
-secretText.style.transition = "opacity 0.6s ease, letter-spacing 0.6s ease";
-
+secretText.style.transition = "opacity 0.4s ease";
+secretText.style.zIndex = "2";
 document.body.appendChild(secretText);
 
+// 🐛 Bugs
+let bugs = [];
+let bugImages = ["bug1.png", "bug2.png", "bug3.png", "bug4.png", "bug5.png", "bug6.png", "bug7.png", "bug8.png", "bug.png"];
+
+function placeBugs() {
+
+    bugs.forEach(b => b.remove());
+    bugs = [];
+
+    let cols = 3;
+    let rows = 3;
+
+    let cellW = window.innerWidth / cols;
+    let cellH = window.innerHeight / rows;
+
+    bugImages.forEach(function (src, i) {
+
+        let b = document.createElement("img");
+        b.src = src;
+        b.classList.add("bug");
+
+        b.style.position = "absolute";
+        b.style.pointerEvents = "none";
+        b.style.zIndex = "2";
+
+
+        b.style.width = "450px";
+
+
+        let col = i % cols;
+        let row = Math.floor(i / cols);
+
+
+        let x = col * cellW + cellW / 2 - 75 + (Math.random() * 40 - 20);
+        let y = row * cellH + cellH / 2 - 75 + (Math.random() * 40 - 20);
+
+        b.style.left = x + "px";
+        b.style.top = y + "px";
+
+        b.style.opacity = "0";
+        b.style.transition = "opacity 0.3s ease";
+
+        b.dataset.rot = (Math.random() * 360).toFixed(1);
+        b.style.transform = `rotate(${b.dataset.rot}deg)`;
+
+        document.body.appendChild(b);
+        bugs.push(b);
+    });
+}
+placeBugs();
+window.addEventListener("resize", placeBugs);
 
 let revealed = false;
 
-
-// 🎯 Move spotlight with mouse
 document.addEventListener("mousemove", function (e) {
 
-    spotlight.style.left = e.clientX - 150 + "px";
-    spotlight.style.top = e.clientY - 150 + "px";
+    // move spotlight
+    spotlight.style.left = (e.clientX - 160) + "px";
+    spotlight.style.top = (e.clientY - 160) + "px";
 
-    // Calculate distance to center text
+    // center reveal text
     let centerX = window.innerWidth / 2;
     let centerY = window.innerHeight / 2;
-
     let dx = e.clientX - centerX;
     let dy = e.clientY - centerY;
     let distance = Math.sqrt(dx * dx + dy * dy);
 
     if (distance < 140) {
+
         secretText.style.opacity = "1";
 
-        if (!revealed) {
-            revealed = true;
+        if (!hovering) {
+            hovering = true;
 
-            // small cinematic pause
-            setTimeout(() => {
+            hoverTimer = setTimeout(function () {
                 window.location.href = "visibility.html";
-            }, 1200);
+            }, 3000);
         }
 
     } else {
+
         secretText.style.opacity = "0";
+
+        hovering = false;
+
+        if (hoverTimer) {
+            clearTimeout(hoverTimer);
+            hoverTimer = null;
+        }
     }
+
+    // 🐛 reveal bugs near spotlight
+    bugs.forEach(function (b) {
+        let bx = b.offsetLeft + b.offsetWidth / 2;
+        let by = b.offsetTop + b.offsetHeight / 2;
+
+        let ddx = e.clientX - bx;
+        let ddy = e.clientY - by;
+        let d = Math.sqrt(ddx * ddx + ddy * ddy);
+
+        if (d < 170) {
+            b.style.opacity = "1";
+            b.style.transform = "scale(1)";
+        } else {
+            b.style.opacity = "0";
+            b.style.transform = "scale(0.96)";
+        }
+    });
 
 });
