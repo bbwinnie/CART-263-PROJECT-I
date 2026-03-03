@@ -109,9 +109,9 @@ window.onload = function () {
     createMenuButton("SHARED SYSTEM", "shared.system.html");
     createMenuButton("VISIBILITY", "visibility.html");
     createMenuButton("SEEN", "seen.html");
-    createMenuButton("RECOMMENDATION", "recommendation.html");
-    createMenuButton("DISTORTION", "distortion.html");
-    createMenuButton("LOSS OF CONTROL", "loss.html");
+    createMenuButton("INPUT or TRACE", "../weini/document.html");
+    createMenuButton("STORAGE or LOSS", "../weini/file.html");
+    createMenuButton("CAN YOU SEE ME NOW?", "../weini/map.html");
     createMenuButton("REFLECTION", "Reflection.html");
     createMenuButton("FINAL", "final.html");
     container.onclick = function () {
