@@ -28,6 +28,7 @@ function setup() {
     img.style.left = "50%";
     img.style.transform = "translate(-50%, -50%)";
     img.style.zIndex = "0";
+    img.style.opacity = "0.7";
     cell.appendChild(img);
 
 
@@ -39,7 +40,7 @@ function setup() {
     for (let i = 0; i < dotP.numDot; i++) {
         // Create variables for our arguments for clarity
         let x = Math.random() * (window.innerWidth);
-        let y = Math.random() * (window.innerHeight) - 100;
+        let y = Math.random() * (window.innerHeight) - 150;
         let size = 20;
 
         // Create a new flower using the arguments
@@ -90,6 +91,28 @@ function setup() {
         cycleBlinkMove();
     }, 3000);
 
+    function dotBeCatch() {
+        let targets = pickRandom(dotP.dot, 20);
+
+        for (let i = 0; i < targets.length; i++) {
+            targets[i].setType("caughtRed");
+        }
+
+    }
+
+    dotBeCatch();
+
+    function dotYellow() {
+        let targets = pickRandom(dotP.dot, 20);
+
+        for (let i = 0; i < targets.length; i++) {
+            targets[i].setType("targetYellow");
+        }
+
+    }
+
+    dotYellow();
+
 
 }
 
@@ -104,17 +127,20 @@ class Dot {
 
         this.type = "normal" // normal | blink15 | targetYellow | caughtRed
         this.isLocked = false;
+
+        this.fakeX = (Math.random() * 180 - 90).toFixed(2);
+        this.fakeY = (Math.random() * 360 - 180).toFixed(2);
     }
 
-    randomColor() {
-        let r = Math.floor(Math.random() * 256);
-        let g = Math.floor(Math.random() * 256);
-        let b = Math.floor(Math.random() * 256);
-        return `rgb(${r}, ${g}, ${b})`;
-    }
+    // randomColor() {
+    //     let r = Math.floor(Math.random() * 256);
+    //     let g = Math.floor(Math.random() * 256);
+    //     let b = Math.floor(Math.random() * 256);
+    //     return `rgb(${r}, ${g}, ${b})`;
+    // }
 
     canMove() {
-        return this.type !== "caughtRed";
+        return !this.isLocked;
     }
 
     renderDot() {
@@ -126,23 +152,27 @@ class Dot {
         this.dotDiv.style.left = this.x + "px";
         this.dotDiv.style.top = this.y + "px";
         this.dotDiv.style.borderRadius = "50%";
-        // this.dotDiv.style.backgroundColor = 'yellow';
-        this.dotDiv.style.backgroundColor = this.randomColor();
+        this.dotDiv.style.backgroundColor = '#87c7ec';
+        // this.dotDiv.style.backgroundColor = this.randomColor();
         this.parentEl.appendChild(this.dotDiv);
     }
 
     setType(newType) {
+
+        if (this.isLocked && newType !== "caughtRed") return;
+
         this.type = newType;
 
         // 
         this.dotDiv.classList.remove("blink");
         this.dotDiv.style.opacity = "1";
+        this.dotDiv.classList.remove("caughtHover");
 
         if (newType === "normal") {
-            this.dotDiv.style.backgroundColor = this.randomColor();
+            this.dotDiv.style.backgroundColor = '#87c7ec';
         }
-        if (newType === "blink15") {
-            this.dotDiv.style.backgroundColor = this.randomColor();
+        if (newType === "blink20") {
+            this.dotDiv.style.backgroundColor = '#87c7ec';
             this.dotDiv.classList.add("blink");
         }
         if (newType === "targetYellow") {
@@ -150,6 +180,13 @@ class Dot {
         }
         if (newType === "caughtRed") {
             this.dotDiv.style.backgroundColor = "red";
+            this.isLocked = true;
+
+            this.dotDiv.classList.add("caughtHover");
+            this.dotDiv.title = "FAKE COORD: X=" + this.fakeX + "  Y=" + this.fakeY;
+            this.dotDiv.style.width = "25px"
+            this.dotDiv.style.height = "25px"
+
         }
     }
 

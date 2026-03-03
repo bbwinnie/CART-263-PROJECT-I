@@ -38,3 +38,12 @@
         opacity: 0.15
     }
 }
+
+.dot {
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.caughtHover:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 18px rgba(117, 94, 94, 0.9);
+}
