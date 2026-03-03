@@ -56,6 +56,41 @@ function setup() {
         dotP.dot[i].renderDot();
         // garden.birds[i].animate();
     }
+
+    function pickRandom(arr, n) {
+        let copy = arr.slice();
+        let picked = [];
+        if (n > copy.length) n = copy.length;
+
+        for (let i = 0; i < n; i++) {
+            let idx = Math.floor(Math.random() * copy.length);
+            picked.push(copy[idx]);
+            copy.splice(idx, 1);
+        }
+        return picked;
+    }
+
+    function cycleBlinkMove() {
+        let targets = pickRandom(dotP.dot, 20);
+
+        for (let i = 0; i < targets.length; i++) {
+            targets[i].setType("blink20");
+        }
+
+        setTimeout(function () {
+            for (var j = 0; j < targets.length; j++) {
+                targets[j].moveRandom(window.innerWidth, window.innerHeight);
+                targets[j].setType("normal");
+            }
+        }, 800);
+    }
+
+    cycleBlinkMove();
+    setInterval(function () {
+        cycleBlinkMove();
+    }, 3000);
+
+
 }
 
 
@@ -66,6 +101,9 @@ class Dot {
         this.size = size;
         this.parentEl = parentEl;
         this.dotDiv = document.createElement("div");
+
+        this.type = "normal" // normal | blink15 | targetYellow | caughtRed
+        this.isLocked = false;
     }
 
     randomColor() {
@@ -73,6 +111,10 @@ class Dot {
         let g = Math.floor(Math.random() * 256);
         let b = Math.floor(Math.random() * 256);
         return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    canMove() {
+        return this.type !== "caughtRed";
     }
 
     renderDot() {
@@ -88,4 +130,39 @@ class Dot {
         this.dotDiv.style.backgroundColor = this.randomColor();
         this.parentEl.appendChild(this.dotDiv);
     }
+
+    setType(newType) {
+        this.type = newType;
+
+        // 
+        this.dotDiv.classList.remove("blink");
+        this.dotDiv.style.opacity = "1";
+
+        if (newType === "normal") {
+            this.dotDiv.style.backgroundColor = this.randomColor();
+        }
+        if (newType === "blink15") {
+            this.dotDiv.style.backgroundColor = this.randomColor();
+            this.dotDiv.classList.add("blink");
+        }
+        if (newType === "targetYellow") {
+            this.dotDiv.style.backgroundColor = "yellow";
+        }
+        if (newType === "caughtRed") {
+            this.dotDiv.style.backgroundColor = "red";
+        }
+    }
+
+    moveRandom(maxW, maxH) {
+        if (!this.canMove()) return;
+        this.x = Math.random() * (maxW - this.size);
+        this.y = Math.random() * (maxH - this.size);
+        this.dotDiv.style.left = this.x + "px";
+        this.dotDiv.style.top = this.y + "px";
+    }
+
+
 }
+
+
+
