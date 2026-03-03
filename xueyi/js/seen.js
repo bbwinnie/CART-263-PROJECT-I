@@ -2,13 +2,15 @@
   SEEN — Hidden Message Interaction
   Move the spotlight to reveal the hidden truth.
 */
-let hoverTimer = null;
-let hovering = false;
+let hoverTimer = null;   // timer for delayed transition
+let hovering = false;    // track whether user stays at center
+
+// --- Basic page setup ---
 document.body.style.margin = "0";
 document.body.style.background = "black";
 document.body.style.overflow = "hidden";
 
-// 🔎 Spotlight
+// --- Spotlight element (follows mouse) ---
 let spotlight = document.createElement("div");
 spotlight.style.position = "fixed";
 spotlight.style.width = "320px";
@@ -37,9 +39,16 @@ secretText.style.transition = "opacity 0.4s ease";
 secretText.style.zIndex = "2";
 document.body.appendChild(secretText);
 
-// 🐛 Bugs
+
+// --- Bug images (hidden fragments) ---
 let bugs = [];
-let bugImages = ["img/bug1.png", "img/bug2.png", "img/bug3.png", "img/bug4.png", "img/bug5.png", "img/bug6.png", "img/bug7.png", "img/bug8.png", "img/bug.png"];
+let bugImages = [
+    "img/bug1.png", "img/bug2.png", "img/bug3.png",
+    "img/bug4.png", "img/bug5.png", "img/bug6.png",
+    "img/bug7.png", "img/bug8.png", "img/bug.png"
+];
+
+// place bugs in a 3x3 grid layout
 
 function placeBugs() {
 
@@ -70,6 +79,7 @@ function placeBugs() {
         let row = Math.floor(i / cols);
 
 
+        // random offset for slight instability
         let x = col * cellW + cellW / 2 - 75 + (Math.random() * 40 - 20);
         let y = row * cellH + cellH / 2 - 75 + (Math.random() * 40 - 20);
 
@@ -90,7 +100,7 @@ placeBugs();
 window.addEventListener("resize", placeBugs);
 
 let revealed = false;
-
+// --- Mouse interaction ---
 document.addEventListener("mousemove", function (e) {
 
     // move spotlight
@@ -127,8 +137,7 @@ document.addEventListener("mousemove", function (e) {
             hoverTimer = null;
         }
     }
-
-    // 🐛 reveal bugs near spotlight
+    // reveal bugs near spotlight
     bugs.forEach(function (b) {
         let bx = b.offsetLeft + b.offsetWidth / 2;
         let by = b.offsetTop + b.offsetHeight / 2;
@@ -147,7 +156,7 @@ document.addEventListener("mousemove", function (e) {
     });
 
 });
-
+// --- Optional keyboard navigation ---
 window.addEventListener("keydown", function (e) {
 
     if (e.key === "ArrowRight") {

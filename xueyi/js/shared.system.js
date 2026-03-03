@@ -14,6 +14,7 @@ let panels = [];
 
 for (let i = 0; i < 4; i++) {
 
+
     let panel = document.createElement("div");
 
 
@@ -45,7 +46,9 @@ for (let i = 0; i < 4; i++) {
     }, 1000);
 }
 
-
+panels.forEach(function (panel) {
+    panel.classList.add("shake");
+});
 
 function createVideo(src) {
     let v = document.createElement("video");
@@ -71,6 +74,8 @@ panels[2].appendChild(v3);
 
 
 let camera = document.createElement("video");
+camera.classList.add("camera");
+camera.style.filter = "grayscale(100%) contrast(120%) brightness(90%) hue-rotate(180deg)";
 
 camera.autoplay = true;
 camera.muted = true;

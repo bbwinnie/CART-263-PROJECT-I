@@ -1,5 +1,5 @@
 window.onload = function () {
-
+    // --- Background star field (moving data space) ---
 
     let canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
@@ -11,10 +11,10 @@ window.onload = function () {
     canvas.style.position = "fixed";
     canvas.style.top = 0;
     canvas.style.left = 0;
-    canvas.style.zIndex = "-1";
+    canvas.style.zIndex = "-1"; // behind everything
 
     let stars = [];
-
+    // create random star particles
     for (let i = 0; i < 150; i++) {
         stars.push({
             x: Math.random() * canvas.width,
@@ -22,7 +22,7 @@ window.onload = function () {
             r: Math.random() * 2
         });
     }
-
+    // animate star movement (slow vertical drift)
     function animateStars() {
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -34,7 +34,7 @@ window.onload = function () {
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
             ctx.fill();
 
-            s.y += 0.3;
+            s.y += 0.3;// slow downward motion
             if (s.y > canvas.height) s.y = 0;
         });
 
@@ -44,7 +44,7 @@ window.onload = function () {
     animateStars();
 
 
-
+    // --- Earth container (split world interaction) ---
     let container = document.createElement("div");
     document.body.appendChild(container);
 
@@ -56,6 +56,7 @@ window.onload = function () {
 
 
 
+    // left half of the Earth
     let leftEarth = document.createElement("img");
     container.appendChild(leftEarth);
 
@@ -64,7 +65,7 @@ window.onload = function () {
     leftEarth.style.clipPath = "inset(0 50% 0 0)";
     leftEarth.style.transition = "1s";
 
-
+    // right half of the Earth
     let rightEarth = document.createElement("img");
     container.appendChild(rightEarth);
 
@@ -76,7 +77,7 @@ window.onload = function () {
     rightEarth.style.transition = "1s";
 
 
-
+    // --- Hidden navigation menu ---
     let menu = document.createElement("div");
     document.body.appendChild(menu);
 
@@ -91,7 +92,7 @@ window.onload = function () {
     menu.style.fontFamily = "Space Mono";
     menu.style.fontWeight = "normal";
 
-
+    // function to create menu links
     function createMenuButton(text, link) {
 
         let btn = document.createElement("a");
@@ -114,11 +115,15 @@ window.onload = function () {
     createMenuButton("CAN YOU SEE ME NOW?", "../weini/map.html");
     createMenuButton("STAY WITH ME", "../weini/click.html");
     createMenuButton("FINAL", "final.html");
-    container.onclick = function () {
 
+    // --- Interaction: split the Earth to reveal structure ---
+
+    container.onclick = function () {
+        // move both halves apart
         leftEarth.style.transform = "translateX(-150px)";
         rightEarth.style.transform = "translateX(150px)";
 
+        // reveal menu after animation
         setTimeout(() => {
             menu.style.display = "flex";
             container.style.pointerEvents = "none";

@@ -107,3 +107,4 @@ setInterval(function () {
         `contrast(${1 + instability / 20}) brightness(${1 + instability / 30})`;
 
 }, 40);
+

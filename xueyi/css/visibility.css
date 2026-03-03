@@ -28,61 +28,6 @@ body {
     background: black;
 }
 
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 5;
-
-    opacity: var(--crack-opacity, 0.9);
-
-    background:
-        linear-gradient(120deg, transparent 46%, white 48%, white 52%, transparent 54%),
-        linear-gradient(60deg, transparent 40%, white 42%, transparent 44%),
-        linear-gradient(200deg, transparent 54%, white 57%, transparent 60%),
-        linear-gradient(30deg, transparent 35%, white 38%, transparent 41%),
-        linear-gradient(150deg, transparent 60%, white 63%, transparent 66%),
-        linear-gradient(90deg, transparent 25%, white 28%, transparent 31%),
-        linear-gradient(170deg, transparent 45%, white 48%, transparent 51%),
-        linear-gradient(10deg, transparent 55%, white 58%, transparent 61%),
-        linear-gradient(75deg, transparent 30%, white 33%, transparent 36%),
-        linear-gradient(135deg, transparent 50%, white 53%, transparent 56%),
-        linear-gradient(210deg, transparent 42%, white 45%, transparent 48%),
-        linear-gradient(15deg, transparent 65%, white 68%, transparent 71%);
-
-    background-size:
-        var(--crack-size, 350px) 6px,
-        var(--crack-size, 280px) 6px,
-        var(--crack-size, 220px) 6px,
-        var(--crack-size, 180px) 6px,
-        var(--crack-size, 300px) 6px,
-        var(--crack-size, 250px) 6px,
-        var(--crack-size, 320px) 6px,
-        var(--crack-size, 260px) 6px,
-        var(--crack-size, 240px) 6px,
-        var(--crack-size, 200px) 6px,
-        var(--crack-size, 230px) 6px,
-        var(--crack-size, 270px) 6px;
-
-    background-position:
-        20% 30%,
-        70% 40%,
-        50% 60%,
-        35% 75%,
-        65% 20%,
-        80% 55%,
-        25% 65%,
-        55% 25%,
-        75% 75%,
-        40% 50%,
-        60% 45%,
-        30% 20%;
-
-    background-repeat: no-repeat;
-
-    mix-blend-mode: normal;
-}
 
 .network {
     position: fixed;
@@ -93,4 +38,18 @@ body::after {
     object-fit: cover;
     transform: translate(-50%, -44%);
     transition: transform 0.05s linear, filter 0.05s linear;
+}
+
+body::before {
+    content: "YOU ARE BEING ORGANIZED";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 0, 0, 0.85);
+    font-family: "Space Mono", monospace;
+    font-size: 40px;
+    letter-spacing: 6px;
+    pointer-events: none;
+    z-index: 2000;
 }
