@@ -32,6 +32,21 @@ function setup() {
     img.style.zIndex = "0";
     cell.appendChild(img);
 
+    let text = document.createElement("div");
+    text.innerHTML = "<p> I'm so lonely.<br> Please stay with me.</p>"
+    text.style.position = "absolute";
+    text.style.color = "white";
+    text.style.fontFamily = "Space Mono";
+    text.style.fontSize = "30px";
+    text.style.textAlign = "center"
+    text.style.fontWeight = "bold";
+    text.style.top = "85%";
+    text.style.left = "50%";
+    text.style.transform = "translate(-50%, -50%)";
+    text.style.zIndex = "999";
+    cell.appendChild(text);
+
+
     img.addEventListener("click", createMouse);
 
     let mouseCount = 0;
@@ -42,8 +57,8 @@ function setup() {
         let clientX = Math.random() * window.innerWidth;
         let clientY = Math.random() * window.innerHeight;
 
-        let vx = 1;
-        let vy = 1;
+        let vx = (Math.random() - 0.5) * 6;
+        let vy = (Math.random() - 0.5) * 6;
 
         mouse.src = "image/mouse.png";
         mouse.style.width = "24px";
@@ -82,10 +97,10 @@ function setup() {
 
         if (mouseCount === 15) {
             img.src = "image/smile.png";
+
+            text.innerHTML = "<p> They’re all here now. <br> I don't feel empty anymore.</p>"
         }
     };
-
-
 
 }
 
