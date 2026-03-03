@@ -1,3 +1,16 @@
+let message = null;
+
+function showCollectedMessage() {
+    if (!message) return;
+
+    message.style.display = "block";
+    clearTimeout(showCollectedMessage._t);
+
+    showCollectedMessage._t = setTimeout(function () {
+        message.style.display = "none";
+    }, 1000);
+}
+
 window.onload = setup
 
 function setup() {
@@ -30,6 +43,7 @@ function setup() {
     img.style.zIndex = "0";
     img.style.opacity = "0.7";
     cell.appendChild(img);
+
 
 
     let dotP = {
@@ -72,7 +86,10 @@ function setup() {
     }
 
     function cycleBlinkMove() {
-        let targets = pickRandom(dotP.dot, 20);
+        let free = dotP.dot.filter(function (d) {
+            return d.type !== "targetYellow" && d.type !== "caughtRed";
+        });
+        let targets = pickRandom(free, 20);
 
         for (let i = 0; i < targets.length; i++) {
             targets[i].setType("blink20");
@@ -109,9 +126,39 @@ function setup() {
             targets[i].setType("targetYellow");
         }
 
+
     }
 
     dotYellow();
+
+    message = document.createElement("div");
+    message.innerText = "You have been collected.";
+    message.style.position = "absolute";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.color = "red";
+    message.style.display = "none";
+    message.style.zIndex = "999999";
+    message.style.fontSize = "28px";
+    message.style.fontFamily = "Space Mono";
+    message.style.letterSpacing = "2px";
+    message.style.textTransform = "uppercase";
+    message.style.background = "#5a5a5a";
+    message.style.padding = "8px 12px";
+    message.style.borderRadius = "8px";
+
+    cell.appendChild(message);
+
+    function animateYellow() {
+        for (let i = 0; i < dotP.dot.length; i++) {
+            if (dotP.dot[i].type === "targetYellow") {
+                dotP.dot[i].moveYellowDot();
+            }
+        }
+        requestAnimationFrame(animateYellow);
+    }
+    animateYellow();
 
 
 }
@@ -121,6 +168,8 @@ class Dot {
     constructor(x, y, size, parentEl) {
         this.x = x;
         this.y = y;
+        this.vx = 0.1;
+        this.vy = 0.1;
         this.size = size;
         this.parentEl = parentEl;
         this.dotDiv = document.createElement("div");
@@ -177,18 +226,35 @@ class Dot {
         }
         if (newType === "targetYellow") {
             this.dotDiv.style.backgroundColor = "yellow";
+            this.dotDiv.title = "Click to catch";
+
+            // 
+            if (!this._hasClickHandler) {
+                this._hasClickHandler = true;
+
+                let self = this; //
+                this.dotDiv.addEventListener("click", function () {
+                    if (self.type === "targetYellow" && !self.isLocked) {
+                        self.setType("caughtRed");
+                        showCollectedMessage();
+                    }
+                });
+            }
         }
+
         if (newType === "caughtRed") {
             this.dotDiv.style.backgroundColor = "red";
             this.isLocked = true;
 
             this.dotDiv.classList.add("caughtHover");
-            this.dotDiv.title = "FAKE COORD: X=" + this.fakeX + "  Y=" + this.fakeY;
+            this.dotDiv.title = "COORD: X=" + this.fakeX + "  Y=" + this.fakeY;
             this.dotDiv.style.width = "25px"
             this.dotDiv.style.height = "25px"
 
         }
     }
+
+
 
     moveRandom(maxW, maxH) {
         if (!this.canMove()) return;
@@ -198,6 +264,29 @@ class Dot {
         this.dotDiv.style.top = this.y + "px";
     }
 
+
+    moveYellowDot() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        const screenW = window.innerWidth;
+        const screenH = window.innerHeight;
+
+
+        // LEFT or RIGHT edge
+        if (this.x <= 0 || this.x >= screenW - this.size) {
+            this.vx *= -1; // reverse horizontal direction
+        }
+
+        // TOP or BOTTOM edge
+        if (this.y <= 0 || this.y >= screenH - this.size) {
+            this.vy *= -1; // reverse vertical direction
+        }
+
+        this.dotDiv.style.left = this.x + "px";
+        this.dotDiv.style.top = this.y + "px";
+
+    }
 
 }
 
