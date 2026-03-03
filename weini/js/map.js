@@ -161,6 +161,16 @@ function setup() {
     animateYellow();
 
 
+    window.addEventListener("keydown", function (e) {
+
+        if (e.key === "ArrowRight") {
+
+            window.location.href = "click.html";
+        }
+
+    });
+
+
 }
 
 
@@ -287,6 +297,7 @@ class Dot {
         this.dotDiv.style.top = this.y + "px";
 
     }
+
 
 }
 

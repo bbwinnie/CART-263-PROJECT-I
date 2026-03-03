@@ -279,4 +279,13 @@ function setup() {
         })
 
     });
+
+    window.addEventListener("keydown", function (e) {
+
+        if (e.key === "ArrowRight") {
+
+            window.location.href = "map.html";
+        }
+
+    });
 }

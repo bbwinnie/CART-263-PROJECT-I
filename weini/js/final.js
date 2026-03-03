@@ -1,6 +1,5 @@
 window.onload = function () {
 
-
     let canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
 
@@ -43,8 +42,6 @@ window.onload = function () {
 
     animateStars();
 
-
-
     let container = document.createElement("div");
     document.body.appendChild(container);
 
@@ -54,12 +51,10 @@ window.onload = function () {
     container.style.transform = "translate(-50%, -50%)";
     container.style.cursor = "pointer";
 
-
-
     let leftEarth = document.createElement("img");
     container.appendChild(leftEarth);
 
-    leftEarth.src = "2.png";
+    leftEarth.src = "../xueyi/2.png";
     leftEarth.style.width = "1000px";
     leftEarth.style.clipPath = "inset(0 50% 0 0)";
     leftEarth.style.transition = "1s";
@@ -68,14 +63,12 @@ window.onload = function () {
     let rightEarth = document.createElement("img");
     container.appendChild(rightEarth);
 
-    rightEarth.src = "2.png";
+    rightEarth.src = "../xueyi/2.png";
     rightEarth.style.width = "1000px";
     rightEarth.style.position = "absolute";
     rightEarth.style.left = "0";
     rightEarth.style.clipPath = "inset(0 0 0 50%)";
     rightEarth.style.transition = "1s";
-
-
 
     let menu = document.createElement("div");
     document.body.appendChild(menu);
@@ -88,6 +81,8 @@ window.onload = function () {
     menu.style.flexDirection = "column";
     menu.style.alignItems = "center";
     menu.style.gap = "10px";
+    menu.style.fontFamily = "Space Mono";
+    menu.style.fontWeight = "normal";
 
 
     function createMenuButton(text, link) {
@@ -98,11 +93,8 @@ window.onload = function () {
 
         btn.style.color = "white";
         btn.style.textDecoration = "none";
-
         menu.appendChild(btn);
     }
-
-
 
     createMenuButton("NETWORK", "script.html");
     createMenuButton("SHARED", "shard.html");
@@ -114,16 +106,64 @@ window.onload = function () {
     createMenuButton("CAN YOU SEE ME NOW?", "../weini/map.html");
     createMenuButton("STAY WITH ME", "../weini/click.html");
     createMenuButton("FINAL", "final.html");
-    container.onclick = function () {
 
+    setTimeout(() => {
         leftEarth.style.transform = "translateX(-150px)";
         rightEarth.style.transform = "translateX(150px)";
+    }, 100);
+
+    setTimeout(() => {
+        menu.style.display = "flex";
+    }, 1100);
+
+    container.onclick = function () {
+
+        // 
+        leftEarth.style.transform = "translateX(0)";
+        rightEarth.style.transform = "translateX(0)";
+
+        menu.style.display = "none";
+
+        // 
+        setTimeout(() => {
+
+            // 
+            leftEarth.style.clipPath = "none";
+            rightEarth.style.display = "none";
+
+            // 
+            leftEarth.style.width = "200px";
+
+            // 
+            container.style.transform = "none";
+            container.style.top = "auto";
+            container.style.left = "auto";
+            container.style.right = "30px";
+            container.style.bottom = "30px";
+
+        }, 1000);
 
         setTimeout(() => {
-            menu.style.display = "flex";
-            container.style.pointerEvents = "none";
-        }, 1000);
+
+            let text = document.createElement("div");
+            text.innerHTML = "<p> A network does not guarantee sharing.<br> It only guarantees transmission.</p>"
+            text.style.position = "absolute";
+            text.style.color = "white";
+            text.style.fontFamily = "Space Mono";
+            text.style.fontSize = "30px";
+            text.style.textAlign = "center"
+            text.style.fontWeight = "bold";
+            text.style.textTransform = "uppercase";
+            text.style.top = "50%";
+            text.style.left = "50%";
+            text.style.transform = "translate(-50%, -50%)";
+            text.style.zIndex = "999";
+            document.body.appendChild(text);
+
+        }, 2000);
+
     };
+
 
 };
 
