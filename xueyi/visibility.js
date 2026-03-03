@@ -43,9 +43,18 @@ document.addEventListener("mousemove", function (e) {
 
     if (speed > 120) {
         triggered = true;
-        cinematicBreak();
-    }
+        instability = 15;
 
+
+        stayTimer = setTimeout(function () {
+            triggered = true;
+            cinematicBreak();
+        }, 2000);
+    }
+    if (speed < 20 && collapseArmed) {
+        collapseArmed = false;
+        clearTimeout(stayTimer);
+    }
     lastX = e.clientX;
     lastY = e.clientY;
 });

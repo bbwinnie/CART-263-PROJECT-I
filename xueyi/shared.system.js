@@ -51,7 +51,6 @@ function createVideo(src) {
     let v = document.createElement("video");
     v.src = src;
     v.autoplay = true;
-    v.loop = true;
     v.muted = true;
     v.playsInline = true;
     v.style.width = "100%";
@@ -72,12 +71,14 @@ panels[2].appendChild(v3);
 
 
 let camera = document.createElement("video");
+
 camera.autoplay = true;
 camera.muted = true;
 camera.playsInline = true;
 camera.style.width = "100%";
 camera.style.height = "100%";
 camera.style.objectFit = "cover";
+camera.classList.add("shake");
 panels[3].appendChild(camera);
 
 navigator.mediaDevices.getUserMedia({ video: true })
@@ -87,20 +88,14 @@ navigator.mediaDevices.getUserMedia({ video: true })
 
 
 
-let flash = document.createElement("div");
-flash.style.position = "fixed";
-flash.style.inset = "0";
-flash.style.background = "white";
-flash.style.opacity = "0";
-flash.style.transition = "opacity 0.2s";
-flash.style.pointerEvents = "none";
-document.body.appendChild(flash);
+let loopCount = 0;
+v1.addEventListener("ended", function () {
+    loopCount++;
 
-function flashAndGo() {
-    flash.style.opacity = "1";
-    setTimeout(function () {
+    if (loopCount >= 2) {
         window.location.href = "visibility.html";
-    }, 300);
-}
-
-// setTimeout(flashAndGo, 3000);
+    } else {
+        v1.currentTime = 0;
+        v1.play();
+    }
+});

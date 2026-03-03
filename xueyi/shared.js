@@ -59,7 +59,7 @@ function updateSharedState() {
 
     if (sharedLoad >= 100) {
         setTimeout(() => {
-            window.location.href = "shared system.html";
+            window.location.href = "shared.system.html";
         }, 800);
     }
 

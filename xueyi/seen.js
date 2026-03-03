@@ -112,7 +112,7 @@ document.addEventListener("mousemove", function (e) {
             hovering = true;
 
             hoverTimer = setTimeout(function () {
-                window.location.href = "visibility.html";
+                window.location.href = "document.html";
             }, 3000);
         }
 
@@ -145,5 +145,15 @@ document.addEventListener("mousemove", function (e) {
             b.style.transform = "scale(0.96)";
         }
     });
+
+});
+
+
+
+window.addEventListener("keydown", function (e) {
+
+    if (e.key === "ArrowRight") {
+        window.location.href = "final.html";
+    }
 
 });
