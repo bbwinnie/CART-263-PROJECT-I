@@ -1,6 +1,33 @@
 let user;
 let tracker;
 
+let startBtn = document.createElement("button");
+startBtn.innerText = "START";
+document.body.appendChild(startBtn);
+
+startBtn.style.position = "fixed";
+startBtn.style.top = "50%";
+startBtn.style.left = "50%";
+startBtn.style.transform = "translate(-50%, -50%)";
+startBtn.style.padding = "12px 30px";
+startBtn.style.fontFamily = "monospace";
+startBtn.style.fontSize = "16px";
+startBtn.style.letterSpacing = "3px";
+startBtn.style.cursor = "pointer";
+startBtn.style.border = "1px solid black";
+startBtn.style.background = "white";
+startBtn.style.zIndex = "50";
+
+let bar = document.createElement("div");
+bar.style.position = "fixed";
+bar.style.top = "0";
+bar.style.left = "0";
+bar.style.height = "6px";
+bar.style.background = "black";
+bar.style.width = "100%";
+bar.style.transition = "width 0.05s linear";
+document.body.appendChild(bar);
+
 document.body.style.margin = "0";
 document.body.style.overflow = "hidden";
 
@@ -23,6 +50,16 @@ rule.style.fontFamily = "monospace";
 rule.style.fontSize = "24px";
 rule.style.textAlign = "center";
 rule.style.zIndex = "20";
+
+let start = Date.now();
+
+setInterval(function () {
+    let elapsed = Date.now() - start;
+    let remaining = 8000 - elapsed;
+    if (remaining > 0) {
+        bar.style.width = (remaining / 8000) * 100 + "%";
+    }
+}, 30);
 
 document.body.appendChild(rule);
 
