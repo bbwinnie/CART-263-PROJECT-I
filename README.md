@@ -1,16 +1,19 @@
 # CART-263-PROJECT-I
 Cart 263 project I
 Team work : Xueyi Xia, Weini Wang
+github live link：https://bbwinnie.github.io/CART-263-PROJECT-I/
+github repositories link：https://github.com/bbwinnie/CART-263-PROJECT-I.git
 
 # Interactive Web Project
 Project Overview
+This project reflects on the paradox of shared networks: while the internet promises connection and sharing, it also constantly records, transmits, and exposes our digital traces, making it a space where true secrecy rarely exists.
 
 # Structure of the Project
 The project consists of ten interconnected webpages:
 
 # Xueyi Part:
 1. EARTH
-- Through a carve up earth image， users enter the system. Clicking causes the image to split and move to both sides。
+- Through a carve up earth image， users enter the system. Clicking causes the image to split and move to both sides.
 ![earth](image/earth.png)
 2. Shared
 - Every time a node is clicked the "shared load" increases,symbolizing how individual actions are continuously absorbed into a larger digital structure.
