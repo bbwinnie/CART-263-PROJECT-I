@@ -183,6 +183,11 @@ window.onload = function () {
 
         }, 2000);
 
+        // Click the small Earth to return to the homepage
+        container.onclick = function () {
+            window.location.href = "../index.html";
+        };
+
     };
 
 

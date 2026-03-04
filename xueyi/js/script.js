@@ -114,7 +114,7 @@ window.onload = function () {
     createMenuButton("STORAGE or LOSS", "../weini/file.html");
     createMenuButton("CAN YOU SEE ME NOW?", "../weini/map.html");
     createMenuButton("STAY WITH ME", "../weini/click.html");
-    createMenuButton("FINAL", "../weini/final.html");
+    createMenuButton("NO OFFLINE", "../weini/final.html");
 
     // --- Interaction: split the Earth to reveal structure ---
 
