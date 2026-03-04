@@ -1,6 +1,6 @@
 # CART-263-PROJECT-I
 Cart 263 project I
-Team work : xueyi xia，weini wang
+Team work : Xueyi Xia, Weini Wan
 
 # Interactive Web Project
 Project Overview
@@ -19,12 +19,10 @@ The project consists of ten interconnected webpages:
 - For simultaneous "television live" panels are in motion.The watching number of people continues to increase but this increase is system made suggesting that visibility itself is a constructed state.
 ![system](image/system.png)
 4. Visibility 
-- Following consumer bahavior changes, the tableau gradually producs an unstale and out of control result. finally entering a collapse state. This end suuggests that within algorithmic structures individual control may geadually weaken or even disappear.
+- Following consumer behavior changes, the tableau gradually produces an unstale and out of control result. Finally entering a collapse state. This end suuggests that within algorithmic structures individual control may gradually weaken or even disappear.
 ![visibility](image/visibility.png)
-
 5. Seen
-- Through a spotlight effect that follows mouse movenment , individuats  can gradually find hidden scripts and moths. In this explore process ,comsumers become conscious that they become both an observer and someone who is being watched. 
-
+- Through a spotlight effect that follows mouse movenment , individuats  can gradually find hidden scripts and bugs. In this explore process ,comsumers become conscious that they become both an observer and someone who is being watched. 
 ![seen](image/seen.png)
 
 
