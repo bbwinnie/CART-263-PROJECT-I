@@ -280,6 +280,7 @@ function setup() {
 
     });
 
+    // Keyboard event: press right arrow to go to the next page
     window.addEventListener("keydown", function (e) {
 
         if (e.key === "ArrowRight") {

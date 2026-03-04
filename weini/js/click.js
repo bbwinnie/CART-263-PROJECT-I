@@ -32,6 +32,7 @@ function setup() {
     img.style.zIndex = "0";
     cell.appendChild(img);
 
+    // Create the text message
     let text = document.createElement("div");
     text.innerHTML = "<p> I'm so lonely.<br> Please stay with me.</p>"
     text.style.position = "absolute";
@@ -46,17 +47,21 @@ function setup() {
     text.style.zIndex = "999";
     cell.appendChild(text);
 
-
+    // When the image is clicked, create a mouse cursor
     img.addEventListener("click", createMouse);
 
+    // Counter for how many mouse cursors have been created
     let mouseCount = 0;
 
     function createMouse() {
+        // Create a mouse cursor image
         let mouse = document.createElement("img");
 
+        // Generate a random starting position
         let clientX = Math.random() * window.innerWidth;
         let clientY = Math.random() * window.innerHeight;
 
+        // Generate random velocity for movement
         let vx = (Math.random() - 0.5) * 6;
         let vy = (Math.random() - 0.5) * 6;
 
@@ -69,10 +74,12 @@ function setup() {
         mouse.style.zIndex = "9999";
         document.body.appendChild(mouse);
 
+        // Update mouse movement when the real mouse moves
         window.addEventListener("mousemove", moveMouse);
 
         function moveMouse() {
 
+            // Update position
             clientX += vx;
             clientY += vy;
 
@@ -81,10 +88,12 @@ function setup() {
 
             const size = 24;
 
+            // Bounce when hitting left or right edges
             if (clientX <= 0 || clientX >= screenW - size) {
                 vx *= -1;
             }
 
+            // Bounce when hitting top or bottom edges
             if (clientY <= 0 || clientY >= screenH - size) {
                 vy *= -1;
             }
@@ -93,8 +102,10 @@ function setup() {
             mouse.style.top = clientY + "px";
         }
 
+        // Increase mouse counter
         mouseCount++;
 
+        // When 15 cursors appear, change the character's emotion
         if (mouseCount === 15) {
             img.src = "image/smile.png";
 
@@ -102,7 +113,7 @@ function setup() {
         }
     };
 
-
+    // Keyboard event: press right arrow to go to the next page
     window.addEventListener("keydown", function (e) {
 
         if (e.key === "ArrowRight") {

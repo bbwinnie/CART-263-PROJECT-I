@@ -1,6 +1,6 @@
 # CART-263-PROJECT-I
 Cart 263 project I
-Team work : Xueyi Xia, Weini Wan
+Team work : Xueyi Xia, Weini Wang
 
 # Interactive Web Project
 Project Overview
