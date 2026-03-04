@@ -1,6 +1,6 @@
 # CART-263-PROJECT-I
 Cart 263 project I
-Team work : xueyi xia weini wang
+Team work : xueyi xia，weini wang
 
 # Interactive Web Project
 Project Overview
@@ -9,8 +9,23 @@ Project Overview
 The project consists of ten interconnected webpages:
 
 # Xueyi Part:
+1. EARTH
+- Through a carve up earth image， users enter the system. Clicking causes the image to split and move to both sides。
+![earth](img/earth.png)
+2. Shared
+- Every time a node is clicked the "shared load" increases,symbolizing how individual actions are continuously absorbed into a larger digital structure.
+![shared](img/shared.png)
+3. shared.system
+- For simultaneous "television live" panels are in motion.The watching number of people continues to increase but this increase is system made suggesting that visibility itself is a constructed state.
+![system](img/system.png)
+4. Visibility 
+- Following consumer bahavior changes, the tableau gradually producs an unstale and out of control result. finally entering a collapse state. This end suuggests that within algorithmic structures individual control may geadually weaken or even disappear.
+![visibility](img/visibility.png)
 
+5. Seen
+- Through a spotlight effect that follows mouse movenment , individuats  can gradually find hidden scripts and moths. In this explore process ,comsumers become conscious that they become both an observer and someone who is being watched. 
 
+![seen](img/seen.png)
 
 
 # Weini part:

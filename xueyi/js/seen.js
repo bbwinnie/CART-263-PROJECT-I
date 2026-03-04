@@ -122,7 +122,7 @@ document.addEventListener("mousemove", function (e) {
             hovering = true;
 
             hoverTimer = setTimeout(function () {
-                window.location.href = "document.html";
+                window.location.href = "../weini/document.html"; s
             }, 3000);
         }
 

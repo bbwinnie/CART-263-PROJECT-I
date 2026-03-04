@@ -1,4 +1,4 @@
-
+// --- Basic page setup ---
 document.body.style.margin = "0";
 document.body.style.overflow = "hidden";
 document.body.style.background = "black";
@@ -8,7 +8,7 @@ document.body.style.justifyContent = "center";
 document.body.style.alignItems = "center";
 document.body.style.height = "100vh";
 document.body.style.fontFamily = "Space Mono";
-
+// --- Background image (unstable visual field) ---
 let img = document.createElement("img");
 img.src = "img/11.png";
 
@@ -27,13 +27,14 @@ let baseY = -44;
 img.style.transform = `translate(${baseX}%, ${baseY}%)`;
 document.body.appendChild(img);
 
+// --- Interaction state variables ---
 let lastX = 0;
 let lastY = 0;
-let triggered = false;
-let instability = 0;
+let triggered = false;     // whether collapse is triggered
+let instability = 0;       // visual instability level
 let collapseArmed = false;
 let stayTimer = null;
-
+// --- Mouse movement detection ---
 document.addEventListener("mousemove", function (e) {
 
     if (triggered) return;
@@ -41,12 +42,12 @@ document.addEventListener("mousemove", function (e) {
     let speed =
         Math.abs(e.clientX - lastX) +
         Math.abs(e.clientY - lastY);
-
+    // fast movement triggers instability
     if (speed > 120) {
         triggered = true;
         instability = 15;
 
-
+        // delay before cinematic break
         stayTimer = setTimeout(function () {
             triggered = true;
             cinematicBreak();
@@ -59,14 +60,14 @@ document.addEventListener("mousemove", function (e) {
     lastX = e.clientX;
     lastY = e.clientY;
 });
-
+// --- Visual collapse effect ---
 function cinematicBreak() {
 
-
+    // crack overlay
     document.body.style.setProperty("--crack-opacity", 1);
     document.body.style.setProperty("--crack-size", "1200px");
 
-
+    // flash effect
     document.body.style.transition = "filter 0.15s";
     document.body.style.filter = "brightness(2)";
 
@@ -74,7 +75,7 @@ function cinematicBreak() {
         document.body.style.filter = "brightness(0)";
     }, 120);
 
-
+    // slight shake
     document.body.style.transform = "translate(5px, -5px)";
 
     setTimeout(() => {
@@ -86,6 +87,8 @@ function cinematicBreak() {
         window.location.href = "seen.html";
     }, 600);
 }
+
+// --- Continuous instability animation ---
 setInterval(function () {
 
     instability *= 0.9;

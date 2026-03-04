@@ -1,15 +1,17 @@
+// Basic page setup
 document.body.style.margin = "0";
 document.body.style.overflow = "hidden";
 document.body.style.height = "100vh";
 
-let dataIntensity = 0.05;
-let scanSpeed = 6;
-let sharedLoad = 0;
-let nodes = [];
-let lines = [];
+// System state variables
+let dataIntensity = 0.05;   // controls scan brightness
+let scanSpeed = 6;          // controls scan animation speed
+let sharedLoad = 0;         // percentage progress
+let nodes = [];             // store all nodes
+let lines = [];             // store all connections
 
 
-
+// --- UI: Shared load display panel ---
 function createControlPanel() {
 
     let panel = document.createElement("div");
@@ -27,11 +29,14 @@ function createControlPanel() {
     document.body.appendChild(panel);
 }
 
+// --- Update system state when nodes are activated ---
 function updateSharedState() {
 
+
+    // increase brightness intensity
     dataIntensity += 0.05;
     document.body.style.filter = `brightness(${1 + dataIntensity})`;
-
+    // increase scan speed
     scanSpeed -= 0.3;
 
     if (scanSpeed < 2) {
@@ -51,12 +56,13 @@ function updateSharedState() {
         "--data-intensity",
         dataIntensity
     );
-
+    // increase shared load
     sharedLoad += 10;
     if (sharedLoad > 100) sharedLoad = 100;
 
     document.getElementById("load").innerText = sharedLoad;
 
+    // redirect when fully loaded
     if (sharedLoad >= 100) {
         setTimeout(() => {
             window.location.href = "shared.system.html";
@@ -66,6 +72,7 @@ function updateSharedState() {
 
 }
 
+// --- Node class (interactive data point) ---
 class Node {
 
     constructor(x, y, size) {
@@ -73,13 +80,13 @@ class Node {
         this.x = x;
         this.y = y;
         this.size = size;
-
+        // click interaction
         this.nodeDiv = document.createElement("div");
 
         let self = this;
 
         this.nodeDiv.addEventListener("click", function () {
-
+            // pulse effect
             self.nodeDiv.style.transform = "translate(-50%,-50%) scale(1.3)";
             self.nodeDiv.style.opacity = "0.3";
 
@@ -91,6 +98,7 @@ class Node {
         });
     }
 
+    // render node to screen
     render() {
 
         document.body.appendChild(this.nodeDiv);
@@ -107,13 +115,13 @@ class Node {
         this.nodeDiv.style.borderRadius = "50%";
         this.nodeDiv.style.backgroundColor = "cyan";
 
-
+        // appear animation
         setTimeout(() => {
             this.nodeDiv.style.transform = "translate(-50%,-50%) scale(1)";
         }, 50);
     }
 }
-
+// --- Line class (connection between nodes) ---
 class Line {
 
     constructor(startNode, endNode) {
@@ -174,6 +182,7 @@ class Line {
 }
 
 
+// --- Create initial network ---
 function createNetwork() {
 
     let centerX = window.innerWidth / 2;
@@ -183,7 +192,7 @@ function createNetwork() {
     center.render();
     center.nodeDiv.classList.add("core");
     nodes.push(center);
-
+    // clicking center creates new nodes
     center.nodeDiv.addEventListener("click", function () {
 
         let x = Math.random() * window.innerWidth;
