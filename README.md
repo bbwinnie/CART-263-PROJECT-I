@@ -62,5 +62,8 @@ Bucher, Taina. “The Algorithmic Imaginary: Exploring the Ordinary Affects of F
 Information, Communication & Society, 2017.
 https://doi.org/10.1080/1369118X.2016.1154086
 
+Maiberg, Emanuel. “This Website Will Self Destruct If You Stop Posting.” 
+VICE, April 21, 2020. 
+https://www.vice.com/en/article/this-website-will-self-destruct-if-you-stop-posting/
 
 
