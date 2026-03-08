@@ -99,7 +99,6 @@ function placeBugs() {
 placeBugs();
 window.addEventListener("resize", placeBugs);
 
-let revealed = false;
 // --- Mouse interaction ---
 document.addEventListener("mousemove", function (e) {
 

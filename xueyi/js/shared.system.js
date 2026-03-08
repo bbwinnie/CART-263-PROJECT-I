@@ -76,7 +76,7 @@ panels[2].appendChild(v3);
 // --- Create live camera feed in fourth panel ---
 let camera = document.createElement("video");
 camera.classList.add("camera");
-camera.style.filter = "grayscale(100%) contrast(120%) brightness(90%) hue-rotate(180deg)";
+camera.style.filter = "grayscale(100%) contrast(120%)";
 
 camera.autoplay = true;
 camera.muted = true;
