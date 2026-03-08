@@ -5,10 +5,8 @@ document.body.style.height = "100vh";
 
 // System state variables
 let dataIntensity = 0.05;   // controls scan brightness
-let scanSpeed = 6;          // controls scan animation speed
 let sharedLoad = 0;         // percentage progress
 let nodes = [];             // store all nodes
-let lines = [];             // store all connections
 
 
 // --- UI: Shared load display panel ---
@@ -36,26 +34,12 @@ function updateSharedState() {
     // increase brightness intensity
     dataIntensity += 0.05;
     document.body.style.filter = `brightness(${1 + dataIntensity})`;
-    // increase scan speed
-    scanSpeed -= 0.3;
 
-    if (scanSpeed < 2) {
-        scanSpeed = 2;
-    }
-
-    document.body.style.setProperty(
-        "--scan-speed",
-        scanSpeed + "s"
-    );
 
     if (dataIntensity > 0.8) {
         dataIntensity = 0.8;
     }
 
-    document.body.style.setProperty(
-        "--data-intensity",
-        dataIntensity
-    );
     // increase shared load
     sharedLoad += 10;
     if (sharedLoad > 100) sharedLoad = 100;
@@ -159,7 +143,7 @@ class Line {
             this.lineDiv.style.width = distance + "px";
         }, 10);
 
-        // ⚡ Lightning flashing effect
+        //  Lightning flashing effect
         let lightning = setInterval(() => {
 
             // Random flash between white and cyan
