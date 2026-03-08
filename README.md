@@ -13,7 +13,7 @@ The project consists of ten interconnected webpages:
 
 # Xueyi Part:
 1. EARTH
-- Through a carve up earth image， users enter the system. Clicking causes the image to split and move to both sides.
+- Through a carve up Earth image， users enter the system. Clicking causes the image to split and move to both sides.
 ![earth](image/earth.png)
 2. Shared
 - Every time a node is clicked the "shared load" increases,symbolizing how individual actions are continuously absorbed into a larger digital structure.
