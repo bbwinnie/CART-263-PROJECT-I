@@ -32,7 +32,6 @@ let lastX = 0;
 let lastY = 0;
 let triggered = false;     // whether collapse is triggered
 let instability = 0;       // visual instability level
-let collapseArmed = false;
 let stayTimer = null;
 // --- Mouse movement detection ---
 document.addEventListener("mousemove", function (e) {
@@ -53,19 +52,13 @@ document.addEventListener("mousemove", function (e) {
             cinematicBreak();
         }, 2000);
     }
-    if (speed < 20 && collapseArmed) {
-        collapseArmed = false;
-        clearTimeout(stayTimer);
-    }
+
     lastX = e.clientX;
     lastY = e.clientY;
 });
 // --- Visual collapse effect ---
 function cinematicBreak() {
 
-    // crack overlay
-    document.body.style.setProperty("--crack-opacity", 1);
-    document.body.style.setProperty("--crack-size", "1200px");
 
     // flash effect
     document.body.style.transition = "filter 0.15s";

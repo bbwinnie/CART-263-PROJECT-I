@@ -22,20 +22,6 @@
     font-style: italic;
 }
 
-button {
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background: black;
-    color: white;
-    letter-spacing: 6px;
-}
-
-button:active {
-    transform: translate(-50%, -50%) scale(0.95);
-}
-
 .bug {
     animation: crawl 4s linear infinite alternate;
 }
