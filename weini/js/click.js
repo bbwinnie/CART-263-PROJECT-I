@@ -41,7 +41,7 @@ function setup() {
     text.style.fontSize = "30px";
     text.style.textAlign = "center"
     text.style.fontWeight = "bold";
-    text.style.top = "85%";
+    text.style.top = "95%";
     text.style.left = "50%";
     text.style.transform = "translate(-50%, -50%)";
     text.style.zIndex = "999";
